@@ -1,0 +1,40 @@
+/**
+ * src/styles/settings.scss
+ *
+ * Configures SASS variables and Vuetify overwrites
+ */
+
+// https://vuetifyjs.com/features/sass-variables/`
+// @use 'vuetify/settings' with (
+//   $color-pack: false
+// );
+
+.one-star-gradient {
+  background: linear-gradient(0deg, rgba(199,199,199,1) 0%, rgba(199,199,199,1) 5%, rgba(199,199,199,0.5) 10%, rgba(255,255,255,0) 100%);
+}
+
+.two-stars-gradient {
+  background: linear-gradient(0deg, rgba(189,255,221,1) 0%, rgba(189,255,221,1) 5%, rgba(110,245,175,0.5) 10%, rgba(255,255,255,0) 100%);
+}
+
+.three-stars-gradient {
+  background: linear-gradient(0deg, rgba(156,218,234,1) 0%, rgba(156,218,234,1) 5%, rgba(156,218,234,0.5) 10%, rgba(255,255,255,0) 100%);
+}
+
+.four-stars-gradient {
+  background: linear-gradient(0deg, rgba(255,190,253,1) 0%, rgba(255,190,253,1) 5%, rgba(250,152,247,0.5) 10%, rgba(255,255,255,0) 100%);
+}
+
+.five-stars-gradient {
+  background: linear-gradient(0deg, rgba(255,253,231,1) 0%, rgba(255,253,231,1) 5%, rgba(255,238,88,0.5) 10%, rgba(255,255,255,0) 100%);
+}
+
+.item-info-title {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.item-info-text {
+  font-size: 0.875rem;
+  font-weight: 400;
+}
