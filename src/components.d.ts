@@ -8,10 +8,14 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     AppFooter: typeof import('./components/AppFooter.vue')['default']
+    FamilyMaterialQtyForm: typeof import('./components/FamilyMaterialQtyForm.vue')['default']
+    FamilyMaterialQuantityForm: typeof import('./components/FamilyMaterialQuantityForm.vue')['default']
     HelloWorld: typeof import('./components/HelloWorld.vue')['default']
     LevelDifference: typeof import('./components/LevelDifference.vue')['default']
+    MaterialQtyForm: typeof import('./components/MaterialQtyForm.vue')['default']
     PlannerResonatorcard: typeof import('./components/PlannerResonatorCard.vue')['default']
     PlannerResonatorCard: typeof import('./components/PlannerResonatorCard.vue')['default']
+    PlannerWeaponCard: typeof import('./components/PlannerWeaponCard.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
   }
