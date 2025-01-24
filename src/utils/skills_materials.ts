@@ -4,61 +4,61 @@ export default function SkillsMaterials(resonator: IResonator) {
   return [
     [
       {
-        ...resonator.forte_family_forgery_material.forgery_materials.two_stars,
+        ...resonator.forte_family_forgery_material.two_stars,
         quantity: 2
       },
       {
-        ...resonator.ascention_family_forgery_material.forgery_materials.two_stars,
-        quantity: 2
-      },
-    ],
-    [
-      {
-        ...resonator.forte_family_forgery_material.forgery_materials.two_stars,
-        quantity: 3
-      },
-      {
-        ...resonator.ascention_family_forgery_material.forgery_materials.two_stars,
-        quantity: 3
-      },
-    ],
-    [
-      {
-        ...resonator.forte_family_forgery_material.forgery_materials.three_stars,
-        quantity: 2
-      },
-      {
-        ...resonator.ascention_family_forgery_material.forgery_materials.three_stars,
+        ...resonator.ascention_family_forgery_material.two_stars,
         quantity: 2
       },
     ],
     [
       {
-        ...resonator.forte_family_forgery_material.forgery_materials.three_stars,
+        ...resonator.forte_family_forgery_material.two_stars,
         quantity: 3
       },
       {
-        ...resonator.ascention_family_forgery_material.forgery_materials.three_stars,
+        ...resonator.ascention_family_forgery_material.two_stars,
         quantity: 3
       },
     ],
     [
       {
-        ...resonator.forte_family_forgery_material.forgery_materials.four_stars,
-        quantity: 3
+        ...resonator.forte_family_forgery_material.three_stars,
+        quantity: 2
       },
       {
-        ...resonator.ascention_family_forgery_material.forgery_materials.four_stars,
+        ...resonator.ascention_family_forgery_material.three_stars,
         quantity: 2
       },
     ],
     [
       {
-        ...resonator.forte_family_forgery_material.forgery_materials.four_stars,
+        ...resonator.forte_family_forgery_material.three_stars,
+        quantity: 3
+      },
+      {
+        ...resonator.ascention_family_forgery_material.three_stars,
+        quantity: 3
+      },
+    ],
+    [
+      {
+        ...resonator.forte_family_forgery_material.four_stars,
+        quantity: 3
+      },
+      {
+        ...resonator.ascention_family_forgery_material.four_stars,
+        quantity: 2
+      },
+    ],
+    [
+      {
+        ...resonator.forte_family_forgery_material.four_stars,
         quantity: 5
       },
       {
-        ...resonator.ascention_family_forgery_material.forgery_materials.four_stars,
+        ...resonator.ascention_family_forgery_material.four_stars,
         quantity: 3
       },
       {
@@ -68,11 +68,11 @@ export default function SkillsMaterials(resonator: IResonator) {
     ],
     [
       {
-        ...resonator.forte_family_forgery_material.forgery_materials.five_stars,
+        ...resonator.forte_family_forgery_material.five_stars,
         quantity: 2
       },
       {
-        ...resonator.ascention_family_forgery_material.forgery_materials.five_stars,
+        ...resonator.ascention_family_forgery_material.five_stars,
         quantity: 2
       },
       {
@@ -82,11 +82,11 @@ export default function SkillsMaterials(resonator: IResonator) {
     ],
     [
       {
-        ...resonator.forte_family_forgery_material.forgery_materials.five_stars,
+        ...resonator.forte_family_forgery_material.five_stars,
         quantity: 3
       },
       {
-        ...resonator.ascention_family_forgery_material.forgery_materials.five_stars,
+        ...resonator.ascention_family_forgery_material.five_stars,
         quantity: 3
       },
       {
@@ -96,11 +96,11 @@ export default function SkillsMaterials(resonator: IResonator) {
     ],
     [
       {
-        ...resonator.forte_family_forgery_material.forgery_materials.five_stars,
+        ...resonator.forte_family_forgery_material.five_stars,
         quantity: 6
       },
       {
-        ...resonator.ascention_family_forgery_material.forgery_materials.five_stars,
+        ...resonator.ascention_family_forgery_material.five_stars,
         quantity: 4
       },
       {

@@ -3,11 +3,11 @@ import IResonator from "@/interfaces/Resonator/IResonator"
 export function StatBonus0Material(resonator: IResonator) {
   return [
     {
-      ...resonator.forte_family_forgery_material.forgery_materials.four_stars,
+      ...resonator.forte_family_forgery_material.four_stars,
       quantity: 3
     },
     {
-      ...resonator.ascention_family_forgery_material.forgery_materials.four_stars,
+      ...resonator.ascention_family_forgery_material.four_stars,
       quantity: 3
     },
   ]
@@ -16,11 +16,11 @@ export function StatBonus0Material(resonator: IResonator) {
 export function StatBonus1Material(resonator: IResonator) {
   return [
     {
-      ...resonator.forte_family_forgery_material.forgery_materials.five_stars,
+      ...resonator.forte_family_forgery_material.five_stars,
       quantity: 3
     },
     {
-      ...resonator.ascention_family_forgery_material.forgery_materials.five_stars,
+      ...resonator.ascention_family_forgery_material.five_stars,
       quantity: 3
     },
     {

@@ -4,7 +4,7 @@ export default function AscentionMaterials(resonator: IResonator) {
   return [
     [
       {
-        ...resonator.ascention_family_forgery_material.forgery_materials.two_stars,
+        ...resonator.ascention_family_forgery_material.two_stars,
         quantity: 4,
       }
     ],
@@ -18,7 +18,7 @@ export default function AscentionMaterials(resonator: IResonator) {
         quantity: 4,
       },
       {
-        ...resonator.ascention_family_forgery_material.forgery_materials.three_stars,
+        ...resonator.ascention_family_forgery_material.three_stars,
         quantity: 4,
       }
     ],
@@ -32,7 +32,7 @@ export default function AscentionMaterials(resonator: IResonator) {
         quantity: 8,
       },
       {
-        ...resonator.ascention_family_forgery_material.forgery_materials.three_stars,
+        ...resonator.ascention_family_forgery_material.three_stars,
         quantity: 8,
       },
     ],
@@ -46,7 +46,7 @@ export default function AscentionMaterials(resonator: IResonator) {
         quantity: 12,
       },
       {
-        ...resonator.ascention_family_forgery_material.forgery_materials.four_stars,
+        ...resonator.ascention_family_forgery_material.four_stars,
         quantity: 4,
       },
     ],
@@ -60,7 +60,7 @@ export default function AscentionMaterials(resonator: IResonator) {
         quantity: 16,
       },
       {
-        ...resonator.ascention_family_forgery_material.forgery_materials.four_stars,
+        ...resonator.ascention_family_forgery_material.four_stars,
         quantity: 8,
       },
     ],
@@ -74,7 +74,7 @@ export default function AscentionMaterials(resonator: IResonator) {
         quantity: 20,
       },
       {
-        ...resonator.ascention_family_forgery_material.forgery_materials.five_stars,
+        ...resonator.ascention_family_forgery_material.five_stars,
         quantity: 4,
       },
     ]
