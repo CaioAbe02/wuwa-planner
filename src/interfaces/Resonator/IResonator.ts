@@ -8,13 +8,16 @@ export default interface IResonator {
   id: string,
   name: string,
   rarity: number,
+  resonator_ascention_material_id: IResonatorAscentionMaterial,
+  ascention_material_id: IAscentionMaterial,
+  ascention_family_forgery_material_id: IFamilyForgeyMaterial,
+  forte_family_forgery_material_id: IFamilyForgeyMaterial,
+  skill_upgrade_material_id: ISkillUpgradeMaterial,
   resonator_ascention_material: IResonatorAscentionMaterial,
   ascention_material: IAscentionMaterial,
   ascention_family_forgery_material: IFamilyForgeyMaterial,
   forte_family_forgery_material: IFamilyForgeyMaterial,
   skill_upgrade_material: ISkillUpgradeMaterial,
-  forte: {
-    inherent_skills: string[],
-    stats_bonus: IStatBonus[],
-  }
+  inherent_skills: string[],
+  stats_bonus: IStatBonus[],
 }
