@@ -1,9 +1,9 @@
-import IResonator from "./IResonator"
-
 export default interface IPlannerResonator {
   id: string,
+  type: string,
+  position: number,
   visible: boolean,
-  resonator: IResonator,
+  resonator_id: string,
   level: number,
   new_level: number,
   ascention_level: number,
