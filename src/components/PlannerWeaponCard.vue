@@ -181,6 +181,7 @@ export default defineComponent({
     removeWeapon() {
       removeWeaponFromLocalStorage(this.weapon.id)
       this.planner_weapon_store.removeWeapon(this.weapon.id)
+      this.$emit('emit_removed_planner_item')
     }
   },
 })

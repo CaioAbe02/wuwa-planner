@@ -345,6 +345,7 @@ export default defineComponent({
     removeResonator() {
       removeResonatorFromLocalStorage(this.resonator_id)
       this.planner_resonator_store.removeResonator(this.resonator_id)
+      this.$emit('emit_removed_planner_item')
     }
   },
 })

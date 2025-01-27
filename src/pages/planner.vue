@@ -45,6 +45,7 @@
           :style="{ order: planner_item.position }"
           @emit_open_family_material_qty_form="openFamilyMaterialQtyForm"
           @emit_open_material_qty_form="openMaterialQtyForm"
+          @emit_removed_planner_item="refreshMaterials"
         />
         <PlannerWeaponCard
           v-else-if="planner_item.type === 1 && 'weapon_id' in planner_item"
@@ -53,6 +54,7 @@
           :style="{ order: planner_item.position }"
           @emit_open_family_material_qty_form="openFamilyMaterialQtyForm"
           @emit_open_material_qty_form="openMaterialQtyForm"
+          @emit_removed_planner_item="refreshMaterials"
         />
       </template>
     </div>
@@ -121,6 +123,7 @@ export default defineComponent({
   },
   methods: {
     refreshMaterials() {
+      this.inventory_store.resetForgedInventory()
       this.n_updates += 1
     },
     openFamilyMaterialQtyForm(family_material_id: string) {
@@ -139,7 +142,6 @@ export default defineComponent({
       this.add_planner_resonator_form = true
     },
     closeAddPlannerResonatorForm(update: boolean) {
-      this.inventory_store.resetForgedInventory()
       this.refreshMaterials()
       this.add_planner_resonator_form = false
     },
@@ -149,7 +151,6 @@ export default defineComponent({
       this.add_planner_weapon_form = true
     },
     closeAddPlannerWeaponForm(update: boolean) {
-      this.inventory_store.resetForgedInventory()
       this.refreshMaterials()
       this.add_planner_weapon_form = false
     },
