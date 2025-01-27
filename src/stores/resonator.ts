@@ -2,13 +2,21 @@ import { defineStore } from 'pinia'
 import IResonator from '@/interfaces/Resonator/IResonator'
 import { supabase } from '@/supabase'
 
-export const useResonatorStore = defineStore('resonatorStore', {
+export const useResonatorStore = defineStore('resonator_store', {
   state: () => ({
     resonators: [] as IResonator[]
   }),
   getters: {
     getResonator(state) {
-      return (resonator_id: string) => state.resonators.find((resonator) => resonator.id === resonator_id)
+      return (resonator_id: string) => {
+        const resonator = state.resonators.find((resonator) => resonator.id === resonator_id)
+
+        if (resonator) {
+          return resonator
+        }
+
+        throw new Error(`Resonator with ID ${resonator_id} not found.`)
+      }
     },
   },
   actions: {
