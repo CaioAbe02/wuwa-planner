@@ -1,9 +1,8 @@
 export default interface IPlannerResonator {
-  id: string,
-  type: string,
+  resonator_id: string,
+  type: number,
   position: number,
   visible: boolean,
-  resonator_id: string,
   level: number,
   new_level: number,
   ascention_level: number,
