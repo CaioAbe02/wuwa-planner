@@ -13,7 +13,7 @@
         <v-btn icon="mdi-pencil" size="x-small"></v-btn>
         <v-btn icon="mdi-arrow-up-right" size="x-small"></v-btn>
         <v-btn icon="mdi-eye-off" size="x-small"></v-btn>
-        <v-btn icon="mdi-delete" size="x-small"></v-btn>
+        <v-btn icon="mdi-delete" size="x-small" @click="removeWeapon()"></v-btn>
       </div>
     </v-sheet>
     <div class="d-flex pa-4">
@@ -30,7 +30,7 @@
       <template v-for="necessary_material in necessary_materials" :key="necessary_material.id">
         <div v-if="necessary_material.show">
           <v-hover v-slot="{ isHovering, props: hoverProps }">
-            <v-sheet class="material_card d-flex flex-column align-center" v-bind="hoverProps">
+            <v-sheet class="material_card d-flex flex-column align-center" v-bind="hoverProps" @click="selectMaterial(necessary_material.family_id, necessary_material.id)">
               <v-sheet class="rounded-t" :class="getRarityClass(necessary_material.rarity)">
                 <v-sheet class="forged_quantity text-caption px-1 rounded-be" v-if="getForgedMaterialQuantity(weapon_inv, necessary_material.id) > 0">
                   {{ getForgedMaterialQuantity(weapon_inv, necessary_material.id) }}
@@ -72,6 +72,8 @@
 //stores
 import { useInventoryStore } from '@/stores/inventory'
 import { useFamilyMaterialStore } from '@/stores/family_material'
+import { useWeaponStore } from '@/stores/weapon'
+import { usePlannerWeaponStore } from '@/stores/planner_weapon'
 
 // interfaces
 import IPlannerWeapon from '@/interfaces/Weapon/IPlannerWeapon'
@@ -90,7 +92,7 @@ import {
   getInvMaterialQuantity,
   forgeMaterial,
 } from '@/utils/planner_materials'
-import { useWeaponStore } from '@/stores/weapons'
+import { removeWeaponFromLocalStorage } from '@/utils/local_storage'
 
 export default defineComponent({
   name: 'PlannerWeaponCard',
@@ -111,6 +113,7 @@ export default defineComponent({
     const inventory_store = useInventoryStore()
     const family_material_store = useFamilyMaterialStore()
     const weapon_store = useWeaponStore()
+    const planner_weapon_store = usePlannerWeaponStore()
 
     const weapon = weapon_store.getWeapon(props.planner_weapon.weapon_id)
 
@@ -121,6 +124,7 @@ export default defineComponent({
     return {
       inventory_store,
       family_material_store,
+      planner_weapon_store,
       weapon,
       necessary_materials: WeaponMaterials(weapon),
       family_material: family_material_store.$state.families,
@@ -166,9 +170,18 @@ export default defineComponent({
         }
       }
     },
-    emitOpenFamilyMaterialQuantityForm() {
-      this.$emit('emit_open_family_material_quantity_form')
+    selectMaterial(family_material_id: string, material_id: string) {
+      if (family_material_id) {
+        this.$emit('emit_open_family_material_qty_form', family_material_id)
+      }
+      else {
+        this.$emit('emit_open_material_qty_form', material_id)
+      }
     },
+    removeWeapon() {
+      removeWeaponFromLocalStorage(this.weapon.id)
+      this.planner_weapon_store.removeWeapon(this.weapon.id)
+    }
   },
 })
 </script>
