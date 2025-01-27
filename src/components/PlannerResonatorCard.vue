@@ -13,7 +13,7 @@
         <v-btn icon="mdi-pencil" size="x-small"></v-btn>
         <v-btn icon="mdi-arrow-up-right" size="x-small"></v-btn>
         <v-btn icon="mdi-eye-off" size="x-small"></v-btn>
-        <v-btn icon="mdi-delete" size="x-small"></v-btn>
+        <v-btn icon="mdi-delete" size="x-small" @click=removeResonator()></v-btn>
       </div>
     </v-sheet>
     <div class="d-flex pa-4">
@@ -124,9 +124,9 @@
 import { useInventoryStore } from '@/stores/inventory'
 import { useFamilyMaterialStore } from '@/stores/family_material'
 import { useResonatorStore } from '@/stores/resonator'
+import { usePlannerResonatorStore } from '@/stores/planner_resonator'
 
 // interfaces
-import IPlannerResonator from '@/interfaces/Resonator/IPlannerResonator'
 import IStatBonus from '@/interfaces/Forte/IStatBonus'
 import IMaterial from '@/interfaces/Materials/INecessaryMaterial'
 
@@ -146,13 +146,14 @@ import {
   getInvMaterialQuantity,
   forgeMaterial,
 } from '@/utils/planner_materials'
+import { removeResonatorFromLocalStorage } from '@/utils/local_storage'
 
 export default defineComponent({
   name: 'PlannerResonatorCard',
   props: {
-    planner_resonator: {
+    resonator_id: {
       required: true,
-      type: Object as ()=>IPlannerResonator
+      type: String
     }
   },
   data() {
@@ -166,17 +167,17 @@ export default defineComponent({
     const inventory_store = useInventoryStore()
     const family_material_store = useFamilyMaterialStore()
     const resonator_store = useResonatorStore()
+    const planner_resonator_store = usePlannerResonatorStore()
 
-    const resonator = resonator_store.getResonator(props.planner_resonator.resonator_id)
-
-    if (!resonator) {
-      throw new Error(`Resonator with ID ${props.planner_resonator.resonator_id} not found.`)
-    }
+    const resonator = resonator_store.getResonator(props.resonator_id)
+    const planner_resonator = planner_resonator_store.getPlannerResonator(props.resonator_id)
 
     return {
       inventory_store,
+      planner_resonator_store,
       resonator,
-      family_material: family_material_store.$state.families,
+      planner_resonator,
+      family_material: family_material_store.families,
       necessary_materials: ResonatorMaterials(resonator),
     }
   },
@@ -341,6 +342,10 @@ export default defineComponent({
         this.$emit('emit_open_material_qty_form', material_id)
       }
     },
+    removeResonator() {
+      removeResonatorFromLocalStorage(this.resonator_id)
+      this.planner_resonator_store.removeResonator(this.resonator_id)
+    }
   },
 })
 </script>
