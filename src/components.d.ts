@@ -7,6 +7,8 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    AddPlannerResonatorForm: typeof import('./components/AddPlannerResonatorForm.vue')['default']
+    AddPlannerWeaponForm: typeof import('./components/AddPlannerWeaponForm.vue')['default']
     AppFooter: typeof import('./components/AppFooter.vue')['default']
     FamilyMaterialQtyForm: typeof import('./components/FamilyMaterialQtyForm.vue')['default']
     FamilyMaterialQuantityForm: typeof import('./components/FamilyMaterialQuantityForm.vue')['default']
@@ -18,5 +20,7 @@ declare module 'vue' {
     PlannerWeaponCard: typeof import('./components/PlannerWeaponCard.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    SelectResonator: typeof import('./components/SelectResonator.vue')['default']
+    SelectWeapon: typeof import('./components/SelectWeapon.vue')['default']
   }
 }
