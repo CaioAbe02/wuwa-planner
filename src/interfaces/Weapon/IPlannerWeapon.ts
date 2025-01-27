@@ -1,9 +1,8 @@
 export default interface IPlannerWeapon {
-  id: string,
-  type: string,
+  weapon_id: string,
+  type: number,
   position: number,
   visible: boolean,
-  weapon_id: string,
   level: number,
   new_level: number,
   ascention_level: number,
