@@ -1,32 +1,58 @@
 <template>
-  <v-container max-width="90%">
-    <v-dialog width="auto" v-model="material_family_qty_form" v-if="material_family_qty_form">
+  <v-container max-width="90%" v-if="!is_loading">
+    <v-dialog width="auto" v-model="material_family_qty_form">
       <FamilyMaterialQtyForm
         :material_family_id="selected_family_material_id"
         @close_family_material_qty_form="material_family_qty_form = false"
-        @add_n_updates="n_updates += 1"
+        @add_n_updates="refreshMaterials()"
       />
     </v-dialog>
-    <v-dialog width="auto" v-model="material_qty_form" v-if="material_qty_form">
+    <v-dialog width="auto" v-model="material_qty_form">
       <MaterialQtyForm
         :material_id="selected_material_id"
         @close_material_qty_form="material_qty_form = false"
-        @add_n_updates="n_updates += 1"
+        @add_n_updates="refreshMaterials()"
       />
     </v-dialog>
-    <div class="planner_cards ga-2" v-if="!is_loading">
-      <template v-for="planner_resonator in planner_resonators" :key="n_updates">
+    <v-dialog width="auto" v-model="resonator_selection">
+      <SelectResonator @selected_resonator="openAddPlannerResonatorForm" />
+    </v-dialog>
+    <v-dialog width="auto" v-model="weapon_selection">
+      <SelectWeapon @selected_weapon="openAddPlannerWeaponForm" />
+    </v-dialog>
+    <v-dialog class="h-75" width="auto" v-model="add_planner_resonator_form">
+      <AddPlannerResonatorForm
+        :resonator_id="selected_resonator_id"
+        @added_resonator="closeAddPlannerResonatorForm"
+      />
+    </v-dialog>
+    <v-dialog class="h-75" width="auto" v-model="add_planner_weapon_form">
+      <AddPlannerWeaponForm
+        :weapon_id="selected_weapon_id"
+        @added_weapon="closeAddPlannerWeaponForm"
+      />
+    </v-dialog>
+    <div class="d-flex pb-4">
+      <v-btn @click="resonator_selection = true">Add Resonator</v-btn>
+      <v-btn @click="weapon_selection = true">Add Weapon</v-btn>
+    </div>
+    <div class="planner_cards ga-2">
+      <template v-for="planner_item in plannerItems">
         <PlannerResonatorCard
-          :planner_resonator="planner_resonator"
-          :style="{ order: planner_resonator.position }"
+          v-if="planner_item.type === 0 && 'resonator_id' in planner_item"
+          :key="planner_item.resonator_id + '-' + n_updates"
+          :resonator_id="planner_item.resonator_id"
+          :style="{ order: planner_item.position }"
           @emit_open_family_material_qty_form="openFamilyMaterialQtyForm"
           @emit_open_material_qty_form="openMaterialQtyForm"
         />
-      </template>
-      <template v-for="planner_weapon in planner_weapons">
         <PlannerWeaponCard
-          :planner_weapon="planner_weapon"
-          :style="{ order: planner_weapon.position }"
+          v-else-if="planner_item.type === 1 && 'weapon_id' in planner_item"
+          :key="planner_item.weapon_id + '-' + n_updates"
+          :planner_weapon="planner_item"
+          :style="{ order: planner_item.position }"
+          @emit_open_family_material_qty_form="openFamilyMaterialQtyForm"
+          @emit_open_material_qty_form="openMaterialQtyForm"
         />
       </template>
     </div>
@@ -39,7 +65,7 @@ import { useMaterialStore } from '@/stores/material'
 import { usePlannerResonatorStore } from '@/stores/planner_resonator'
 import { usePlannerWeaponStore } from '@/stores/planner_weapon'
 import { useResonatorStore } from '@/stores/resonator'
-import { useWeaponStore } from '@/stores/weapons'
+import { useWeaponStore } from '@/stores/weapon'
 import { useInventoryStore } from '@/stores/inventory'
 
 export default defineComponent({
@@ -48,9 +74,15 @@ export default defineComponent({
     return {
       material_family_qty_form: false,
       material_qty_form: false,
+      resonator_selection: false,
+      weapon_selection: false,
+      add_planner_resonator_form: false,
+      add_planner_weapon_form: false,
       selected_family_material_id: '',
       selected_material_id: '',
-      n_updates: 0,
+      selected_resonator_id: '',
+      selected_weapon_id: '',
+      n_updates: 0
     }
   },
   setup() {
@@ -69,17 +101,28 @@ export default defineComponent({
       await resonator_store.fetchResonators()
       await weapons_store.fetchWeapons()
       inventory_store.setInventory()
+      planner_resonator_store.fetchPlannerResonators()
+      planner_weapon_store.fetchPlannerWeapons()
       is_loading.value = false
     })
 
     return {
       family_material_store,
-      planner_resonators: planner_resonator_store.$state.planner_resonators,
-      planner_weapons: planner_weapon_store.$state.planner_weapons,
+      inventory_store,
+      planner_resonators: computed(() => planner_resonator_store.planner_resonators),
+      planner_weapons: computed(() => planner_weapon_store.planner_weapons),
       is_loading,
     }
   },
+  computed: {
+    plannerItems() {
+      return [...this.planner_resonators, ...this.planner_weapons].sort((a, b) => a.position - b.position)
+    },
+  },
   methods: {
+    refreshMaterials() {
+      this.n_updates += 1
+    },
     openFamilyMaterialQtyForm(family_material_id: string) {
       this.selected_family_material_id = family_material_id
       this.selected_material_id = ''
@@ -90,7 +133,27 @@ export default defineComponent({
       this.selected_family_material_id = ''
       this.material_qty_form = true
     },
-  }
+    openAddPlannerResonatorForm(resonator_id: string) {
+      this.resonator_selection = false
+      this.selected_resonator_id = resonator_id
+      this.add_planner_resonator_form = true
+    },
+    closeAddPlannerResonatorForm(update: boolean) {
+      this.inventory_store.resetForgedInventory()
+      this.refreshMaterials()
+      this.add_planner_resonator_form = false
+    },
+    openAddPlannerWeaponForm(weapon_id: string) {
+      this.weapon_selection = false
+      this.selected_weapon_id = weapon_id
+      this.add_planner_weapon_form = true
+    },
+    closeAddPlannerWeaponForm(update: boolean) {
+      this.inventory_store.resetForgedInventory()
+      this.refreshMaterials()
+      this.add_planner_weapon_form = false
+    },
+  },
 })
 </script>
 
