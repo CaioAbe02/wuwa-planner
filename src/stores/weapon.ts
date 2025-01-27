@@ -2,13 +2,20 @@ import { defineStore } from 'pinia'
 import IWeapon from '@/interfaces/Weapon/IWeapon'
 import { supabase } from '@/supabase'
 
-export const useWeaponStore = defineStore('weaponStore', {
+export const useWeaponStore = defineStore('weapon_store', {
   state: () => ({
     weapons: [] as IWeapon[]
   }),
   getters: {
     getWeapon(state) {
-      return (weapon_id: string) => state.weapons.find((weapon) => weapon.id === weapon_id)
+      return (weapon_id: string) => {
+        const weapon = state.weapons.find((weapon) => weapon.id === weapon_id)
+
+        if (weapon) {
+          return weapon
+        }
+        throw new Error(`Weapon with ID ${weapon_id} not found.`)
+      }
     },
   },
   actions: {
