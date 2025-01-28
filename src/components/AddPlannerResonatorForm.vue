@@ -186,15 +186,10 @@
 <script lang="ts">
 //stores
 import { useResonatorStore } from '@/stores/resonator'
-import { usePlannerResonatorStore } from '@/stores/planner_resonator'
-import { usePlannerWeaponStore } from '@/stores/planner_weapon'
-
-// utils
-import { getArrayFromLocalStorage, saveArrayToLocalStorage } from '../utils/local_storage'
+import { usePlannerItemStore } from '@/stores/planner_item'
 
 // interfaces
 import IPlannerResonator from '@/interfaces/Resonator/IPlannerResonator'
-import IPlannerWeapon from '@/interfaces/Weapon/IPlannerWeapon'
 
 export default defineComponent({
   name: 'AddPlannerResonatorForm',
@@ -239,19 +234,15 @@ export default defineComponent({
   },
   setup(props) {
     const resonator_store = useResonatorStore()
-    const planner_resonator_store = usePlannerResonatorStore()
-    const planner_weapon_store = usePlannerWeaponStore()
+    const planner_item_store = usePlannerItemStore()
 
     return {
       resonator: resonator_store.getResonator(props.resonator_id),
-      planner_resonator_store,
-      planner_weapon_store
+      planner_item_store,
     }
   },
   methods: {
     addResonator() {
-      let planner_resonators_local = getArrayFromLocalStorage<IPlannerResonator>('planner_resonators')
-      let planner_weapons_local = getArrayFromLocalStorage<IPlannerWeapon>('planner_weapons')
       const new_resonator: IPlannerResonator = {
         resonator_id: this.resonator.id,
         type: 0,
@@ -276,26 +267,7 @@ export default defineComponent({
           stats_bonus: this.stat_bonuses
         }
       }
-
-      if (planner_resonators_local.length > 0) {
-        for (const resonator of planner_resonators_local) {
-          resonator.position += 1
-        }
-      }
-
-      if (planner_weapons_local.length > 0) {
-        for (const weapon of planner_weapons_local) {
-          weapon.position += 1
-        }
-      }
-
-      planner_resonators_local.unshift(new_resonator)
-      saveArrayToLocalStorage('planner_resonators', planner_resonators_local)
-      saveArrayToLocalStorage('planner_weapons', planner_weapons_local)
-
-      this.planner_resonator_store.addResonator(new_resonator)
-      this.planner_weapon_store.fetchPlannerWeapons()
-
+      this.planner_item_store.addItem(new_resonator)
       this.$emit('added_resonator', true)
     }
   },

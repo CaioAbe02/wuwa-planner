@@ -73,7 +73,7 @@
 import { useInventoryStore } from '@/stores/inventory'
 import { useFamilyMaterialStore } from '@/stores/family_material'
 import { useWeaponStore } from '@/stores/weapon'
-import { usePlannerWeaponStore } from '@/stores/planner_weapon'
+import { usePlannerItemStore } from '@/stores/planner_item'
 
 // interfaces
 import IPlannerWeapon from '@/interfaces/Weapon/IPlannerWeapon'
@@ -92,7 +92,6 @@ import {
   getInvMaterialQuantity,
   forgeMaterial,
 } from '@/utils/planner_materials'
-import { removeWeaponFromLocalStorage } from '@/utils/local_storage'
 
 export default defineComponent({
   name: 'PlannerWeaponCard',
@@ -113,7 +112,7 @@ export default defineComponent({
     const inventory_store = useInventoryStore()
     const family_material_store = useFamilyMaterialStore()
     const weapon_store = useWeaponStore()
-    const planner_weapon_store = usePlannerWeaponStore()
+    const planner_item_store = usePlannerItemStore()
 
     const weapon = weapon_store.getWeapon(props.planner_weapon.weapon_id)
 
@@ -124,7 +123,7 @@ export default defineComponent({
     return {
       inventory_store,
       family_material_store,
-      planner_weapon_store,
+      planner_item_store,
       weapon,
       necessary_materials: WeaponMaterials(weapon),
       family_material: family_material_store.$state.families,
@@ -179,8 +178,7 @@ export default defineComponent({
       }
     },
     removeWeapon() {
-      removeWeaponFromLocalStorage(this.weapon.id)
-      this.planner_weapon_store.removeWeapon(this.weapon.id)
+      this.planner_item_store.removeWeapon(this.weapon.id, this.planner_weapon.position)
       this.$emit('emit_removed_planner_item')
     }
   },

@@ -124,7 +124,7 @@
 import { useInventoryStore } from '@/stores/inventory'
 import { useFamilyMaterialStore } from '@/stores/family_material'
 import { useResonatorStore } from '@/stores/resonator'
-import { usePlannerResonatorStore } from '@/stores/planner_resonator'
+import { usePlannerItemStore } from '@/stores/planner_item'
 
 // interfaces
 import IStatBonus from '@/interfaces/Forte/IStatBonus'
@@ -146,7 +146,6 @@ import {
   getInvMaterialQuantity,
   forgeMaterial,
 } from '@/utils/planner_materials'
-import { removeResonatorFromLocalStorage } from '@/utils/local_storage'
 
 export default defineComponent({
   name: 'PlannerResonatorCard',
@@ -167,14 +166,14 @@ export default defineComponent({
     const inventory_store = useInventoryStore()
     const family_material_store = useFamilyMaterialStore()
     const resonator_store = useResonatorStore()
-    const planner_resonator_store = usePlannerResonatorStore()
+    const planner_item_store = usePlannerItemStore()
 
     const resonator = resonator_store.getResonator(props.resonator_id)
-    const planner_resonator = planner_resonator_store.getPlannerResonator(props.resonator_id)
+    const planner_resonator = planner_item_store.getPlannerResonator(props.resonator_id)
 
     return {
       inventory_store,
-      planner_resonator_store,
+      planner_item_store,
       resonator,
       planner_resonator,
       family_material: family_material_store.families,
@@ -343,8 +342,7 @@ export default defineComponent({
       }
     },
     removeResonator() {
-      removeResonatorFromLocalStorage(this.resonator_id)
-      this.planner_resonator_store.removeResonator(this.resonator_id)
+      this.planner_item_store.removeResonator(this.resonator_id, this.planner_resonator.position)
       this.$emit('emit_removed_planner_item')
     }
   },

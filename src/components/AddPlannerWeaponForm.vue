@@ -63,11 +63,7 @@
 <script lang="ts">
 //stores
 import { useWeaponStore } from '@/stores/weapon'
-import { usePlannerWeaponStore } from '@/stores/planner_weapon'
-import { usePlannerResonatorStore } from '@/stores/planner_resonator'
-
-// utils
-import { getArrayFromLocalStorage, saveArrayToLocalStorage } from '@/utils/local_storage'
+import { usePlannerItemStore } from '@/stores/planner_item'
 
 // interfaces
 import IPlannerWeapon from '@/interfaces/Weapon/IPlannerWeapon'
@@ -98,19 +94,15 @@ export default defineComponent({
   },
   setup(props) {
     const weapon_store = useWeaponStore()
-    const planner_weapon_store = usePlannerWeaponStore()
-    const planner_resonator_store = usePlannerResonatorStore()
+    const planner_item_store = usePlannerItemStore()
 
     return {
       weapon: weapon_store.getWeapon(props.weapon_id),
-      planner_weapon_store,
-      planner_resonator_store,
+      planner_item_store,
     }
   },
   methods: {
     addWeapon() {
-      let planner_weapons_local = getArrayFromLocalStorage<IPlannerWeapon>('planner_weapons')
-      let planner_resonators_local = getArrayFromLocalStorage<IPlannerResonator>('planner_resonators')
       const new_weapon: IPlannerWeapon = {
         weapon_id: this.weapon.id,
         type: 1,
@@ -121,26 +113,7 @@ export default defineComponent({
         level: this.level,
         new_level: this.new_level
       }
-
-      if (planner_weapons_local.length > 0) {
-        for (const weapon of planner_weapons_local) {
-          weapon.position += 1
-        }
-      }
-
-      if (planner_resonators_local.length > 0) {
-        for (const resonator of planner_resonators_local) {
-          resonator.position += 1
-        }
-      }
-
-      planner_weapons_local.unshift(new_weapon)
-      saveArrayToLocalStorage('planner_weapons', planner_weapons_local)
-      saveArrayToLocalStorage('planner_resonators', planner_resonators_local)
-
-      this.planner_weapon_store.addWeapon(new_weapon)
-      this.planner_resonator_store.fetchPlannerResonators()
-
+      this.planner_item_store.addItem(new_weapon)
       this.$emit('added_weapon', true)
     }
   },
