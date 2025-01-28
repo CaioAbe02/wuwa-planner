@@ -32,12 +32,19 @@
         @added_weapon="closeAddPlannerWeaponForm"
       />
     </v-dialog>
+    <v-dialog class="h-75" width="auto" v-model="prioritize_planner_item">
+      <PrioritizePlannerItem
+        :planner_items="planner_items"
+        @emit_close_priotize_planner_item="closePriotizePlannerItem"
+      />
+    </v-dialog>
     <div class="d-flex pb-4">
       <v-btn @click="resonator_selection = true">Add Resonator</v-btn>
       <v-btn @click="weapon_selection = true">Add Weapon</v-btn>
+      <v-btn @click="prioritize_planner_item = true">Prioritize</v-btn>
     </div>
     <div class="planner_cards ga-2">
-      <template v-for="planner_item in plannerItems">
+      <template v-for="planner_item in planner_items">
         <PlannerResonatorCard
           v-if="planner_item.type === 0 && 'resonator_id' in planner_item"
           :key="planner_item.resonator_id + '-' + n_updates"
@@ -64,11 +71,10 @@
 <script lang="ts">
 import { useFamilyMaterialStore } from '@/stores/family_material'
 import { useMaterialStore } from '@/stores/material'
-import { usePlannerResonatorStore } from '@/stores/planner_resonator'
-import { usePlannerWeaponStore } from '@/stores/planner_weapon'
 import { useResonatorStore } from '@/stores/resonator'
 import { useWeaponStore } from '@/stores/weapon'
 import { useInventoryStore } from '@/stores/inventory'
+import { usePlannerItemStore } from '@/stores/planner_item'
 
 export default defineComponent({
   name: 'PlannerPage',
@@ -80,6 +86,7 @@ export default defineComponent({
       weapon_selection: false,
       add_planner_resonator_form: false,
       add_planner_weapon_form: false,
+      prioritize_planner_item: false,
       selected_family_material_id: '',
       selected_material_id: '',
       selected_resonator_id: '',
@@ -88,8 +95,7 @@ export default defineComponent({
     }
   },
   setup() {
-    const planner_resonator_store = usePlannerResonatorStore()
-    const planner_weapon_store = usePlannerWeaponStore()
+    const planner_item_store = usePlannerItemStore()
     const material_store = useMaterialStore()
     const family_material_store = useFamilyMaterialStore()
     const resonator_store = useResonatorStore()
@@ -103,23 +109,17 @@ export default defineComponent({
       await resonator_store.fetchResonators()
       await weapons_store.fetchWeapons()
       inventory_store.setInventory()
-      planner_resonator_store.fetchPlannerResonators()
-      planner_weapon_store.fetchPlannerWeapons()
+      planner_item_store.fetchPlannerItems()
       is_loading.value = false
     })
 
     return {
       family_material_store,
       inventory_store,
-      planner_resonators: computed(() => planner_resonator_store.planner_resonators),
-      planner_weapons: computed(() => planner_weapon_store.planner_weapons),
+      planner_item_store,
+      planner_items: computed(() => planner_item_store.planner_items),
       is_loading,
     }
-  },
-  computed: {
-    plannerItems() {
-      return [...this.planner_resonators, ...this.planner_weapons].sort((a, b) => a.position - b.position)
-    },
   },
   methods: {
     refreshMaterials() {
@@ -153,6 +153,11 @@ export default defineComponent({
     closeAddPlannerWeaponForm(update: boolean) {
       this.refreshMaterials()
       this.add_planner_weapon_form = false
+    },
+    closePriotizePlannerItem() {
+      this.planner_item_store.fetchPlannerItems()
+      this.refreshMaterials()
+      this.prioritize_planner_item = false
     },
   },
 })

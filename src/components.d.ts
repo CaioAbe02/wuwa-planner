@@ -18,6 +18,7 @@ declare module 'vue' {
     PlannerResonatorcard: typeof import('./components/PlannerResonatorCard.vue')['default']
     PlannerResonatorCard: typeof import('./components/PlannerResonatorCard.vue')['default']
     PlannerWeaponCard: typeof import('./components/PlannerWeaponCard.vue')['default']
+    PrioritizePlannerItem: typeof import('./components/PrioritizePlannerItem.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SelectResonator: typeof import('./components/SelectResonator.vue')['default']
