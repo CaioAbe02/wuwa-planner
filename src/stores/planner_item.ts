@@ -46,10 +46,11 @@ export const usePlannerItemStore = defineStore('planner_item', {
         this.planner_items = getArrayFromLocalStorage<IPlannerResonator | IPlannerWeapon>('planner_items')
       },
       addItem(item: IPlannerResonator | IPlannerWeapon) {
-        let planner_items_local = getArrayFromLocalStorage<IPlannerResonator | IPlannerWeapon>(this.key)
-        planner_items_local.unshift(item)
-        saveArrayToLocalStorage(this.key, planner_items_local)
-        this.fetchPlannerItems()
+        for (const planner_item of this.planner_items) {
+          planner_item.position += 1
+        }
+        this.planner_items.unshift(item)
+        saveArrayToLocalStorage(this.key, this.planner_items)
       },
       removeResonator(resonator_id: string, resonator_position: number) {
         this.removePlannerItemFromLocalStorage(resonator_id, 0, resonator_position)
