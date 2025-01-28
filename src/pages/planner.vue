@@ -49,19 +49,17 @@
           v-if="planner_item.type === 0 && 'resonator_id' in planner_item"
           :key="planner_item.resonator_id + '-' + n_updates"
           :resonator_id="planner_item.resonator_id"
-          :style="{ order: planner_item.position }"
           @emit_open_family_material_qty_form="openFamilyMaterialQtyForm"
           @emit_open_material_qty_form="openMaterialQtyForm"
-          @emit_removed_planner_item="refreshMaterials"
+          @emit_refresh_materials="refreshMaterials"
         />
         <PlannerWeaponCard
           v-else-if="planner_item.type === 1 && 'weapon_id' in planner_item"
           :key="planner_item.weapon_id + '-' + n_updates"
           :planner_weapon="planner_item"
-          :style="{ order: planner_item.position }"
           @emit_open_family_material_qty_form="openFamilyMaterialQtyForm"
           @emit_open_material_qty_form="openMaterialQtyForm"
-          @emit_removed_planner_item="refreshMaterials"
+          @emit_refresh_materials="refreshMaterials"
         />
       </template>
     </div>
