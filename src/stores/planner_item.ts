@@ -54,33 +54,29 @@ export const usePlannerItemStore = defineStore('planner_item', {
       },
       removeResonator(resonator_id: string, resonator_position: number) {
         this.removePlannerItemFromLocalStorage(resonator_id, 0, resonator_position)
-        this.fetchPlannerItems()
       },
       removeWeapon(weapon_id: string, weapon_position: number) {
         this.removePlannerItemFromLocalStorage(weapon_id, 1, weapon_position)
-        this.fetchPlannerItems()
       },
       removePlannerItemFromLocalStorage(item_id: string, item_type: number, item_position: number) {
-        let planner_items_local = getArrayFromLocalStorage<IPlannerResonator | IPlannerWeapon>(this.key)
-
         if (item_type === 0) {
-          planner_items_local = planner_items_local.filter((item): item is IPlannerResonator => {
+          this.planner_items = this.planner_items.filter((item): item is IPlannerResonator => {
             return (item as IPlannerResonator).resonator_id !== item_id
           })
         }
         else if (item_type === 1) {
-          planner_items_local = planner_items_local.filter((item): item is IPlannerWeapon => {
+          this.planner_items = this.planner_items.filter((item): item is IPlannerWeapon => {
             return (item as IPlannerWeapon).weapon_id !== item_id
           })
         }
 
-        for (const item of planner_items_local) {
+        for (const item of this.planner_items) {
           if (item_position < item.position) {
             item.position -= 1
           }
         }
 
-        saveArrayToLocalStorage(this.key, planner_items_local)
+        saveArrayToLocalStorage(this.key, this.planner_items)
       }
     }
 })
