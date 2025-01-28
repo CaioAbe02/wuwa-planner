@@ -13,14 +13,14 @@
         <span>Ascention Level</span>
         <div class="d-flex align-center pt-1">
           <v-text-field
-            v-model="ascention_level"
+            v-model.number="ascention_level"
             density="compact"
             variant="outlined"
             append-icon="mdi-arrow-right-thin"
             :rules="[rules.required, rules.ascention_level]"
           ></v-text-field>
           <v-text-field
-            v-model="new_ascention_level"
+            v-model.number="new_ascention_level"
             density="compact"
             variant="outlined"
             class="ml-5"
@@ -32,14 +32,14 @@
         <span>Level</span>
         <div class="d-flex align-center pt-1">
           <v-text-field
-            v-model="level"
+            v-model.number="level"
             density="compact"
             variant="outlined"
             append-icon="mdi-arrow-right-thin"
             :rules="[rules.required, rules.level]"
           ></v-text-field>
           <v-text-field
-            v-model="new_level"
+            v-model.number="new_level"
             density="compact"
             variant="outlined"
             class="ml-4"

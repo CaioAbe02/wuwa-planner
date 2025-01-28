@@ -13,14 +13,14 @@
         <span>Ascention Level</span>
         <div class="d-flex align-center pt-1">
           <v-text-field
-            v-model="ascention_level"
+            v-model.number="ascention_level"
             density="compact"
             variant="outlined"
             append-icon="mdi-arrow-right-thin"
             :rules="[rules.required, rules.ascention_level]"
           ></v-text-field>
           <v-text-field
-            v-model="new_ascention_level"
+            v-model.number="new_ascention_level"
             density="compact"
             variant="outlined"
             class="ml-5"
@@ -32,14 +32,14 @@
         <span>Level</span>
         <div class="d-flex align-center pt-1">
           <v-text-field
-            v-model="level"
+            v-model.number="level"
             density="compact"
             variant="outlined"
             append-icon="mdi-arrow-right-thin"
             :rules="[rules.required, rules.level]"
           ></v-text-field>
           <v-text-field
-            v-model="new_level"
+            v-model.number="new_level"
             density="compact"
             variant="outlined"
             class="ml-4"
@@ -52,14 +52,14 @@
         <span>Normal Attack</span>
         <div class="d-flex align-center pt-1">
           <v-text-field
-            v-model="normal_attack"
+            v-model.number="normal_attack"
             density="compact"
             variant="outlined"
             append-icon="mdi-arrow-right-thin"
             :rules="[rules.required, rules.forte]"
           ></v-text-field>
           <v-text-field
-            v-model="new_normal_attack"
+            v-model.number="new_normal_attack"
             density="compact"
             variant="outlined"
             class="ml-4"
@@ -71,14 +71,14 @@
         <span>Resonance Skill</span>
         <div class="d-flex align-center pt-1">
           <v-text-field
-            v-model="resonance_skill"
+            v-model.number="resonance_skill"
             density="compact"
             variant="outlined"
             append-icon="mdi-arrow-right-thin"
             :rules="[rules.required, rules.forte]"
           ></v-text-field>
           <v-text-field
-            v-model="new_resonance_skill"
+            v-model.number="new_resonance_skill"
             density="compact"
             variant="outlined"
             class="ml-4"
@@ -90,14 +90,14 @@
         <span>Forte Circuit</span>
         <div class="d-flex align-center pt-1">
           <v-text-field
-            v-model="forte_circuit"
+            v-model.number="forte_circuit"
             density="compact"
             variant="outlined"
             append-icon="mdi-arrow-right-thin"
             :rules="[rules.required, rules.forte]"
           ></v-text-field>
           <v-text-field
-            v-model="new_forte_circuit"
+            v-model.number="new_forte_circuit"
             density="compact"
             variant="outlined"
             class="ml-4"
@@ -109,14 +109,14 @@
         <span>Resonance Liberation</span>
         <div class="d-flex align-center pt-1">
           <v-text-field
-            v-model="resonance_liberation"
+            v-model.number="resonance_liberation"
             density="compact"
             variant="outlined"
             append-icon="mdi-arrow-right-thin"
             :rules="[rules.required, rules.forte]"
           ></v-text-field>
           <v-text-field
-            v-model="new_resonance_liberation"
+            v-model.number="new_resonance_liberation"
             density="compact"
             variant="outlined"
             class="ml-4"
