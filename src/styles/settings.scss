@@ -29,6 +29,10 @@
   background: linear-gradient(0deg, rgba(255,253,231,1) 0%, rgba(255,253,231,1) 5%, rgba(255,238,88,0.5) 10%, rgba(255,255,255,0) 100%);
 }
 
+.planner_item_invisible {
+  opacity: 0.5;
+}
+
 .item-info-title {
   font-size: 1rem;
   font-weight: 600;
