@@ -67,7 +67,6 @@ import { usePlannerItemStore } from '@/stores/planner_item'
 
 // interfaces
 import IPlannerWeapon from '@/interfaces/Weapon/IPlannerWeapon'
-import IPlannerResonator from '@/interfaces/Resonator/IPlannerResonator'
 
 export default defineComponent({
   name: 'AddPlannerWeaponForm',
