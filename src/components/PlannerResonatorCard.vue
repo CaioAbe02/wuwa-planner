@@ -1,5 +1,5 @@
 <template>
-  <v-sheet class="rounded-lg h-100">
+  <v-sheet class="rounded-lg h-100" :class="!planner_resonator.visible ? 'planner_item_invisible' : ''">
     <v-sheet class="five-stars-gradient d-flex align-center justify-space-between rounded-t-lg pa-2">
       <div class="d-flex align-center ga-2">
         <v-avatar size="large">
@@ -12,7 +12,7 @@
       <div class="d-flex ga-1">
         <v-btn icon="mdi-pencil" size="x-small"></v-btn>
         <v-btn icon="mdi-arrow-up-right" size="x-small"></v-btn>
-        <v-btn icon="mdi-eye-off" size="x-small"></v-btn>
+        <v-btn :icon="!planner_resonator.visible ? 'mdi-eye' : 'mdi-eye-off'" size="x-small" @click="changeVisibility()"></v-btn>
         <v-btn icon="mdi-delete" size="x-small" @click=removeResonator()></v-btn>
       </div>
     </v-sheet>
@@ -219,8 +219,10 @@ export default defineComponent({
         getInvMaterialQuantity(this.inventory_store, this.resonator_inv, this.initial_materials, material.id, material.quantity)
       }
 
-      for (const material of this.necessary_materials) {
-        forgeMaterial(this.inventory_store, this.resonator_inv, this.family_material, this.materials_to_change, material.id)
+      if (this.planner_resonator.visible) {
+        for (const material of this.necessary_materials) {
+          forgeMaterial(this.inventory_store, this.resonator_inv, this.family_material, this.materials_to_change, material.id)
+        }
       }
       this.inventory_store.updateMaterialsQuantity(this.materials_to_change, true)
 
@@ -341,9 +343,13 @@ export default defineComponent({
         this.$emit('emit_open_material_qty_form', material_id)
       }
     },
+    changeVisibility() {
+      this.planner_item_store.changeItemVisibility(this.resonator_id, this.planner_resonator.type)
+      this.$emit('emit_refresh_materials')
+    },
     removeResonator() {
       this.planner_item_store.removeResonator(this.resonator_id, this.planner_resonator.position)
-      this.$emit('emit_removed_planner_item')
+      this.$emit('emit_refresh_materials')
     }
   },
 })
@@ -373,5 +379,9 @@ export default defineComponent({
 .material_card {
   position: relative;
   cursor: pointer;
+}
+
+.invisible {
+  opacity: 0.5;
 }
 </style>

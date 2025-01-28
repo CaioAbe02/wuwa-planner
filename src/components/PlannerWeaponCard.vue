@@ -1,5 +1,5 @@
 <template>
-  <v-sheet class="rounded-lg h-100">
+  <v-sheet class="rounded-lg h-100" :class="!planner_weapon.visible ? 'planner_item_invisible' : ''">
     <v-sheet class="five-stars-gradient d-flex align-center justify-space-between rounded-t-lg pa-2">
       <div class="d-flex align-center ga-2">
         <v-avatar size="large">
@@ -12,7 +12,7 @@
       <div class="d-flex ga-1">
         <v-btn icon="mdi-pencil" size="x-small"></v-btn>
         <v-btn icon="mdi-arrow-up-right" size="x-small"></v-btn>
-        <v-btn icon="mdi-eye-off" size="x-small"></v-btn>
+        <v-btn :icon="!planner_weapon.visible ? 'mdi-eye' : 'mdi-eye-off'" size="x-small" @click="changeVisibility()"></v-btn>
         <v-btn icon="mdi-delete" size="x-small" @click="removeWeapon()"></v-btn>
       </div>
     </v-sheet>
@@ -150,8 +150,10 @@ export default defineComponent({
         getInvMaterialQuantity(this.inventory_store, this.weapon_inv, this.initial_materials, material.id, material.quantity)
       }
 
-      for (const material of this.necessary_materials) {
-        forgeMaterial(this.inventory_store, this.weapon_inv, this.family_material, this.materials_to_change, material.id)
+      if (this.planner_weapon.visible) {
+        for (const material of this.necessary_materials) {
+          forgeMaterial(this.inventory_store, this.weapon_inv, this.family_material, this.materials_to_change, material.id)
+        }
       }
 
       this.inventory_store.updateMaterialsQuantity(this.materials_to_change, true)
@@ -176,6 +178,10 @@ export default defineComponent({
       else {
         this.$emit('emit_open_material_qty_form', material_id)
       }
+    },
+    changeVisibility() {
+      this.planner_item_store.changeItemVisibility(this.planner_weapon.weapon_id, this.planner_weapon.type)
+      this.$emit('emit_refresh_materials')
     },
     removeWeapon() {
       this.planner_item_store.removeWeapon(this.weapon.id, this.planner_weapon.position)
