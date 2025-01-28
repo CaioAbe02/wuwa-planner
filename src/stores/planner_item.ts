@@ -75,7 +75,15 @@ export const usePlannerItemStore = defineStore('planner_item', {
             item.position -= 1
           }
         }
+        saveArrayToLocalStorage(this.key, this.planner_items)
+      },
+      changeItemVisibility(item_id: string, item_type: number) {
+        let item = {} as IPlannerResonator | IPlannerWeapon
 
+        if (item_type === 0) item = this.getPlannerResonator(item_id)
+        else if (item_type === 1) item = this.getPlannerWeapon(item_id)
+
+        item.visible = !item.visible
         saveArrayToLocalStorage(this.key, this.planner_items)
       }
     }
