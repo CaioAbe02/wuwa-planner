@@ -83,7 +83,11 @@
           <v-hover v-slot="{ isHovering, props: hoverProps }">
             <v-sheet class="material_card d-flex flex-column align-center" v-bind="hoverProps" @click="selectMaterial(necessary_material.family_id, necessary_material.id)">
               <v-sheet class="rounded-t" :class="getRarityClass(necessary_material.rarity)">
-                <v-sheet class="forged_quantity text-caption px-1 rounded-be" v-if="getForgedMaterialQuantity(resonator_inv, necessary_material.id) > 0">
+                <v-sheet class="forged_quantity d-flex text-caption px-1 rounded-be" v-if="getForgedMaterialQuantity(resonator_inv, necessary_material.id) > 0">
+                  <v-img
+                    :src="`src/assets/Icon_Synthesize.webp`"
+                    :width="15"
+                  ></v-img>
                   {{ getForgedMaterialQuantity(resonator_inv, necessary_material.id) }}
                 </v-sheet>
                 <v-img
@@ -371,17 +375,8 @@ export default defineComponent({
   grid-template-columns: repeat(auto-fill, minmax(45px, 1fr));
 }
 
-.forged_quantity {
-  position: absolute;
-  z-index: 1;
-}
-
 .material_card {
   position: relative;
   cursor: pointer;
-}
-
-.invisible {
-  opacity: 0.5;
 }
 </style>
