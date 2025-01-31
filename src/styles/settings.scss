@@ -43,6 +43,11 @@
   font-weight: 400;
 }
 
+.forged_quantity {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
 .custom-scrollbar::-webkit-scrollbar {
   width: 7px;
 }
