@@ -175,7 +175,7 @@
       <v-btn
         variant="outlined"
         :prepend-icon="edit ? '' : 'mdi-plus'"
-        :text="edit ? 'Save' : 'Add Weapon'"
+        :text="edit ? 'Save' : 'Add Resonator'"
         type="submit"
         @click="edit ? editResonator() : addResonator()"
       ></v-btn>
