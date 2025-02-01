@@ -7,7 +7,7 @@
       <v-sheet class="d-flex flex-column align-center">
         <v-sheet class="rounded-t" :class="getRarityClass(material.rarity)">
           <v-img
-            :src="`src/assets/Materials/${getMaterialFileName(material.name)}.webp`"
+            :src="getMaterialIconUrl(material.name)"
             :width="50"
           >
           </v-img>
@@ -44,6 +44,7 @@ import { useInventoryStore } from '@/stores/inventory'
 // utils
 import getRarityClass from '@/utils/rarity_class'
 import { getMaterialFileName } from '@/utils/planner_materials'
+import { getMaterialIconUrl } from '@/utils/supabase'
 
 export default defineComponent({
   name: 'MaterialQtyForm',
@@ -67,6 +68,7 @@ export default defineComponent({
   methods: {
     getRarityClass,
     getMaterialFileName,
+    getMaterialIconUrl,
     emitCloseMaterialQtyForm() {
       this.$emit('close_material_qty_form')
     },

@@ -7,7 +7,7 @@
       <v-sheet class="d-flex flex-column align-center">
         <v-sheet class="rounded-t" :class="getRarityClass(material_family.two_stars.rarity)">
           <v-img
-            :src="`src/assets/Materials/${getMaterialFileName(material_family.two_stars.name)}.webp`"
+            :src="getMaterialIconUrl(material_family.two_stars.name)"
             :width="50"
           >
           </v-img>
@@ -24,7 +24,7 @@
       <v-sheet class="material_card d-flex flex-column align-center">
         <v-sheet class="rounded-t" :class="getRarityClass(material_family.three_stars.rarity)">
           <v-img
-            :src="`src/assets/Materials/${getMaterialFileName(material_family.three_stars.name)}.webp`"
+            :src="getMaterialIconUrl(material_family.three_stars.name)"
             :width="50"
           >
           </v-img>
@@ -41,7 +41,7 @@
       <v-sheet class="material_card d-flex flex-column align-center">
         <v-sheet class="rounded-t" :class="getRarityClass(material_family.four_stars.rarity)">
           <v-img
-            :src="`src/assets/Materials/${getMaterialFileName(material_family.four_stars.name)}.webp`"
+            :src="getMaterialIconUrl(material_family.four_stars.name)"
             :width="50"
           >
           </v-img>
@@ -58,7 +58,7 @@
       <v-sheet class="material_card d-flex flex-column align-center">
         <v-sheet class="rounded-t" :class="getRarityClass(material_family.five_stars.rarity)">
           <v-img
-            :src="`src/assets/Materials/${getMaterialFileName(material_family.five_stars.name)}.webp`"
+            :src="getMaterialIconUrl(material_family.five_stars.name)"
             :width="50"
           >
           </v-img>
@@ -96,6 +96,7 @@ import { useInventoryStore } from '@/stores/inventory'
 // utils
 import getRarityClass from '@/utils/rarity_class'
 import { getMaterialFileName } from '@/utils/planner_materials'
+import { getMaterialIconUrl } from '@/utils/supabase';
 
 export default defineComponent({
   name: 'FamilyMaterialQtyForm',
@@ -135,6 +136,7 @@ export default defineComponent({
   methods: {
     getRarityClass,
     getMaterialFileName,
+    getMaterialIconUrl,
     emitCloseFamilyMaterialQtyForm() {
       this.$emit('close_family_material_qty_form')
     },
