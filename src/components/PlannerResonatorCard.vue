@@ -76,7 +76,7 @@
         <p>{{ getStatBonusTooltipText(resonator.stats_bonus[index]) }}</p>
       </v-tooltip>
     </div>
-    <v-divider></v-divider>
+    <v-divider v-if="!necessary_materials.every((material) => material.show === false)"></v-divider>
     <div class="materials_container ga-2 pa-4">
       <template v-for="necessary_material in necessary_materials" :key="necessary_material.id">
         <div v-if="necessary_material.show">
