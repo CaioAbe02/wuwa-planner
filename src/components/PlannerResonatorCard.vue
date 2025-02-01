@@ -10,7 +10,7 @@
         <p class="text-sm-h6 text-xs-subtitle-1">{{ resonator.name }}</p>
       </div>
       <div class="d-flex ga-1">
-        <v-btn icon="mdi-pencil" size="x-small"></v-btn>
+        <v-btn icon="mdi-pencil" size="x-small" @click=editPlannerResonator()></v-btn>
         <v-btn icon="mdi-arrow-up-right" size="x-small"></v-btn>
         <v-btn :icon="!planner_resonator.visible ? 'mdi-eye' : 'mdi-eye-off'" size="x-small" @click="changeVisibility()"></v-btn>
         <v-btn icon="mdi-delete" size="x-small" @click=removeResonator()></v-btn>
@@ -349,6 +349,9 @@ export default defineComponent({
       else {
         this.$emit('emit_open_material_qty_form', material_id)
       }
+    },
+    editPlannerResonator() {
+      this.$emit('emit_open_planner_resonator_form', this.resonator_id, true)
     },
     changeVisibility() {
       this.planner_item_store.changeItemVisibility(this.resonator_id, this.planner_resonator.type)

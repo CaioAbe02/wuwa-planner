@@ -15,15 +15,16 @@
       />
     </v-dialog>
     <v-dialog width="auto" v-model="resonator_selection">
-      <SelectResonator @selected_resonator="openAddPlannerResonatorForm" />
+      <SelectResonator @selected_resonator="openPlannerResonatorForm" />
     </v-dialog>
     <v-dialog width="auto" v-model="weapon_selection">
       <SelectWeapon @selected_weapon="openPlannerWeaponForm" />
     </v-dialog>
-    <v-dialog class="h-75" width="auto" v-model="add_planner_resonator_form">
-      <AddPlannerResonatorForm
+    <v-dialog class="h-75" width="auto" v-model="planner_resonator_form">
+      <PlannerResonatorForm
         :resonator_id="selected_resonator_id"
-        @added_resonator="closeAddPlannerResonatorForm"
+        :edit="edit_planner_resonator"
+        @emit_close_resonator_form="closePlannerResonatorForm"
       />
     </v-dialog>
     <v-dialog class="h-75" width="auto" v-model="planner_weapon_form">
@@ -39,11 +40,6 @@
         @emit_close_priotize_planner_item="closePriotizePlannerItem"
       />
     </v-dialog>
-    <v-dialog class="h-75" width="auto" v-model="edit_planner_resonator_form">
-      <EditPlannerResonatorForm
-        :resonator_id="selected_resonator_id"
-      />
-    </v-dialog>
     <div class="d-flex pb-4">
       <v-btn @click="resonator_selection = true">Add Resonator</v-btn>
       <v-btn @click="weapon_selection = true">Add Weapon</v-btn>
@@ -57,6 +53,7 @@
           :resonator_id="planner_item.resonator_id"
           @emit_open_family_material_qty_form="openFamilyMaterialQtyForm"
           @emit_open_material_qty_form="openMaterialQtyForm"
+          @emit_open_planner_resonator_form="openPlannerResonatorForm"
           @emit_refresh_materials="refreshMaterials"
         />
         <PlannerWeaponCard
@@ -89,10 +86,11 @@ export default defineComponent({
       material_qty_form: false,
       resonator_selection: false,
       weapon_selection: false,
-      add_planner_resonator_form: false,
+      planner_resonator_form: false,
       planner_weapon_form: false,
       prioritize_planner_item: false,
       edit_planner_resonator_form: false,
+      edit_planner_resonator: false,
       edit_planner_weapon: false,
       selected_family_material_id: '',
       selected_material_id: '',
@@ -143,14 +141,17 @@ export default defineComponent({
       this.selected_family_material_id = ''
       this.material_qty_form = true
     },
-    openAddPlannerResonatorForm(resonator_id: string) {
+    openPlannerResonatorForm(resonator_id: string, edit_planner_resonator: boolean) {
       this.resonator_selection = false
       this.selected_resonator_id = resonator_id
-      this.add_planner_resonator_form = true
+      this.edit_planner_resonator = edit_planner_resonator
+      this.planner_resonator_form = true
     },
-    closeAddPlannerResonatorForm(update: boolean) {
-      this.refreshMaterials()
-      this.add_planner_resonator_form = false
+    closePlannerResonatorForm(update: boolean) {
+      if (update) {
+        this.refreshMaterials()
+      }
+      this.planner_resonator_form = false
     },
     openPlannerWeaponForm(weapon_id: string, edit_planner_weapon: boolean) {
       this.weapon_selection = false

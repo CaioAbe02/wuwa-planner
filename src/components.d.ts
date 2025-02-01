@@ -7,7 +7,6 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
-    AddPlannerResonatorForm: typeof import('./components/AddPlannerResonatorForm.vue')['default']
     AppFooter: typeof import('./components/AppFooter.vue')['default']
     FamilyMaterialQtyForm: typeof import('./components/FamilyMaterialQtyForm.vue')['default']
     FamilyMaterialQuantityForm: typeof import('./components/FamilyMaterialQuantityForm.vue')['default']
@@ -16,6 +15,7 @@ declare module 'vue' {
     MaterialQtyForm: typeof import('./components/MaterialQtyForm.vue')['default']
     PlannerResonatorcard: typeof import('./components/PlannerResonatorCard.vue')['default']
     PlannerResonatorCard: typeof import('./components/PlannerResonatorCard.vue')['default']
+    PlannerResonatorForm: typeof import('./components/PlannerResonatorForm.vue')['default']
     PlannerWeaponCard: typeof import('./components/PlannerWeaponCard.vue')['default']
     PlannerWeaponForm: typeof import('./components/PlannerWeaponForm.vue')['default']
     PrioritizePlannerItem: typeof import('./components/PrioritizePlannerItem.vue')['default']

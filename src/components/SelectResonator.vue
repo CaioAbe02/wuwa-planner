@@ -42,7 +42,7 @@ export default defineComponent({
       }
     },
     selectResonator(resonator_id: string) {
-      this.$emit('selected_resonator', resonator_id)
+      this.$emit('selected_resonator', resonator_id, false)
     }
   },
 })
