@@ -41,8 +41,8 @@ export default defineComponent({
         case 5: return 'text-yellow-lighten-2'
       }
     },
-    selectWeapon(Weapon_id: string) {
-      this.$emit('selected_weapon', Weapon_id)
+    selectWeapon(weapon_id: string) {
+      this.$emit('selected_weapon', weapon_id, false)
     }
   },
 })

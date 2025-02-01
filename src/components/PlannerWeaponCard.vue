@@ -10,7 +10,7 @@
         <p class="text-sm-h6 text-xs-subtitle-1">{{ weapon.name }}</p>
       </div>
       <div class="d-flex ga-1">
-        <v-btn icon="mdi-pencil" size="x-small"></v-btn>
+        <v-btn icon="mdi-pencil" size="x-small" @click="editPlannerWeapon()"></v-btn>
         <v-btn icon="mdi-arrow-up-right" size="x-small"></v-btn>
         <v-btn :icon="!planner_weapon.visible ? 'mdi-eye' : 'mdi-eye-off'" size="x-small" @click="changeVisibility()"></v-btn>
         <v-btn icon="mdi-delete" size="x-small" @click="removeWeapon()"></v-btn>
@@ -185,6 +185,9 @@ export default defineComponent({
       else {
         this.$emit('emit_open_material_qty_form', material_id)
       }
+    },
+    editPlannerWeapon() {
+      this.$emit('emit_open_planner_weapon_form', this.planner_weapon.weapon_id, true)
     },
     changeVisibility() {
       this.planner_item_store.changeItemVisibility(this.planner_weapon.weapon_id, this.planner_weapon.type)
