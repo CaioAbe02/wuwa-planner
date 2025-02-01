@@ -66,7 +66,8 @@ export const usePlannerItemStore = defineStore('planner_item', {
         }
         else if (item_type === 1) {
           this.planner_items = this.planner_items.filter((item): item is IPlannerWeapon => {
-            return (item as IPlannerWeapon).weapon_id !== item_id
+            const weapon = item as IPlannerWeapon
+            return weapon.weapon_id !== item_id || weapon.position !== item_position
           })
         }
 
