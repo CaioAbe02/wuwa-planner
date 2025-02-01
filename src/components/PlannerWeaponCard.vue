@@ -86,7 +86,10 @@ import IMaterial from '@/interfaces/Materials/IInventoryMaterial'
 // utils
 import WeaponMaterials from '@/utils/weapon_materials'
 import getRarityClass from '@/utils/rarity_class'
-import WeaponAscentionMaterials from '@/utils/weapon_ascention_materials'
+import {
+  FiveStarsWeaponAscentionMaterials,
+  FourStarsWeaponAscentionMaterials,
+} from '@/utils/weapon_ascention_materials'
 import {
   addMaterialFromMatrix,
   getForgedMaterialQuantity,
@@ -170,7 +173,12 @@ export default defineComponent({
     getAscentionMaterials() {
       const ascention_level = this.planner_weapon.ascention_level
       const new_ascention_level = this.planner_weapon.new_ascention_level
-      const ascention_materials = WeaponAscentionMaterials(this.weapon)
+      let ascention_materials
+      switch (this.weapon.rarity) {
+        case 5: ascention_materials = FiveStarsWeaponAscentionMaterials(this.weapon)
+        case 4: ascention_materials = FourStarsWeaponAscentionMaterials(this.weapon)
+        default: ascention_materials = FiveStarsWeaponAscentionMaterials(this.weapon)
+      }
 
       for (let i = ascention_level; i < (new_ascention_level - ascention_level); i++) {
         for (const j in ascention_materials[i]) {
