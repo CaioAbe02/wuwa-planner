@@ -52,6 +52,10 @@ export const usePlannerItemStore = defineStore('planner_item', {
         this.planner_items.unshift(item)
         saveArrayToLocalStorage(this.key, this.planner_items)
       },
+      editItem(edited_item: IPlannerResonator | IPlannerWeapon) {
+        this.planner_items[edited_item.position] = edited_item
+        saveArrayToLocalStorage(this.key, this.planner_items)
+      },
       removeResonator(resonator_id: string, resonator_position: number) {
         this.removePlannerItemFromLocalStorage(resonator_id, 0, resonator_position)
       },
