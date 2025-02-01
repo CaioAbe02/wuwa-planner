@@ -153,7 +153,7 @@
           density="compact"
         >
           <template v-slot:label>
-            <span class="text-body-2">{{ resonator.inherent_skills[0] }}</span>
+            <span class="text-body-2">{{ resonator.inherent_skills[index] }}</span>
           </template>
         </v-checkbox>
       </div>
