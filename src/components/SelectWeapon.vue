@@ -5,7 +5,7 @@
         <div class="d-flex align-center ga-2 cursor-pointer" @click="selectWeapon(weapon.id)">
           <v-avatar size="large">
             <v-img
-              :src="`src/assets/Weapons/Icons/${weapon.name.replace(' ', '_')}_Icon.webp`"
+              :src="getWeaponIconUrl(weapon.name)"
             ></v-img>
           </v-avatar>
           <span :class="weaponNameColor(weapon.rarity)">
@@ -18,7 +18,11 @@
 </template>
 
 <script lang="ts">
+// stores
 import { useWeaponStore } from '@/stores/weapon'
+
+//utils
+import { getWeaponIconUrl } from '@/utils/supabase';
 
 export default defineComponent({
   name: 'SelectWeapon',
@@ -30,6 +34,7 @@ export default defineComponent({
     }
   },
   methods: {
+    getWeaponIconUrl,
     weaponNameColor(rarity: number) {
       switch (rarity) {
         case 4: return 'text-purple'

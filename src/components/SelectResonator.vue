@@ -5,7 +5,7 @@
         <div class="d-flex align-center ga-2 cursor-pointer" @click="selectResonator(resonator.id)">
           <v-avatar size="large">
             <v-img
-              :src="`src/assets/Resonators/Icons/${resonator.name}_Icon.webp`"
+              :src="getResonatorIconUrl(resonator.name)"
             ></v-img>
           </v-avatar>
           <span :class="resonatorNameColor(resonator.rarity)">
@@ -18,7 +18,11 @@
 </template>
 
 <script lang="ts">
+//stores
 import { useResonatorStore } from '@/stores/resonator'
+
+//utils
+import { getResonatorIconUrl } from '@/utils/supabase';
 
 export default defineComponent({
   name: 'SelectResonator',
@@ -30,6 +34,7 @@ export default defineComponent({
     }
   },
   methods: {
+    getResonatorIconUrl,
     resonatorNameColor(rarity: number) {
       switch (rarity) {
         case 4: return 'text-purple'

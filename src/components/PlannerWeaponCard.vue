@@ -4,7 +4,7 @@
       <div class="d-flex align-center ga-2">
         <v-avatar size="large">
           <v-img
-            :src="`src/assets/Weapons/Icons/${weapon.name.replace(' ', '_')}_Icon.webp`"
+            :src="getWeaponIconUrl(weapon.name)"
           ></v-img>
         </v-avatar>
         <p class="text-sm-h6 text-xs-subtitle-1">{{ weapon.name }}</p>
@@ -40,7 +40,7 @@
                   {{ getForgedMaterialQuantity(weapon_inv, necessary_material.id) }}
                 </v-sheet>
                 <v-img
-                  :src="`src/assets/Materials/${getMaterialFileName(necessary_material.name)}.webp`"
+                  :src="getMaterialIconUrl(necessary_material.name)"
                   :width="50"
                 >
                   <v-overlay
@@ -96,6 +96,7 @@ import {
   getInvMaterialQuantity,
   forgeMaterial,
 } from '@/utils/planner_materials'
+import { getWeaponIconUrl, getMaterialIconUrl } from '@/utils/supabase'
 
 export default defineComponent({
   name: 'PlannerWeaponCard',
@@ -145,6 +146,8 @@ export default defineComponent({
     getInitialMaterialQuantity,
     getInvMaterialQuantity,
     forgeMaterial,
+    getWeaponIconUrl,
+    getMaterialIconUrl,
     getNecessaryMaterials(): IMaterial[] {
       if (this.planner_weapon.ascention_level !== this.planner_weapon.new_ascention_level) {
         this.getAscentionMaterials()

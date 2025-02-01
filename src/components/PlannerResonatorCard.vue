@@ -4,7 +4,7 @@
       <div class="d-flex align-center ga-2">
         <v-avatar size="large">
           <v-img
-            :src="`src/assets/Resonators/Icons/${resonator.name}_Icon.webp`"
+            :src="getResonatorIconUrl(resonator.name)"
           ></v-img>
         </v-avatar>
         <p class="text-sm-h6 text-xs-subtitle-1">{{ resonator.name }}</p>
@@ -91,7 +91,7 @@
                   {{ getForgedMaterialQuantity(resonator_inv, necessary_material.id) }}
                 </v-sheet>
                 <v-img
-                  :src="`src/assets/Materials/${getMaterialFileName(necessary_material.name)}.webp`"
+                  :src="getMaterialIconUrl(necessary_material.name)"
                   :width="50"
                 >
                   <v-overlay
@@ -150,6 +150,7 @@ import {
   getInvMaterialQuantity,
   forgeMaterial,
 } from '@/utils/planner_materials'
+import { getResonatorIconUrl, getMaterialIconUrl } from '@/utils/supabase'
 
 export default defineComponent({
   name: 'PlannerResonatorCard',
@@ -196,6 +197,8 @@ export default defineComponent({
     getInitialMaterialQuantity,
     getInvMaterialQuantity,
     forgeMaterial,
+    getResonatorIconUrl,
+    getMaterialIconUrl,
     getStatBonusIconName(stat_bonus_name: string): string {
       switch (stat_bonus_name) {
         case 'ATK+': return 'atk.webp'

@@ -3,7 +3,7 @@
     <v-card-title class="pa-0 pb-6">
       <v-avatar size="large">
         <v-img
-          :src="`src/assets/Weapons/Icons/${weapon.name.replace(' ', '_')}_Icon.webp`"
+          :src="getWeaponIconUrl(weapon.name)"
         ></v-img>
       </v-avatar>
       {{ weapon.name }}
@@ -68,6 +68,9 @@ import { usePlannerItemStore } from '@/stores/planner_item'
 // interfaces
 import IPlannerWeapon from '@/interfaces/Weapon/IPlannerWeapon'
 
+//utils
+import { getWeaponIconUrl } from '@/utils/supabase';
+
 export default defineComponent({
   name: 'AddPlannerWeaponForm',
   props: {
@@ -101,6 +104,7 @@ export default defineComponent({
     }
   },
   methods: {
+    getWeaponIconUrl,
     addWeapon() {
       const new_weapon: IPlannerWeapon = {
         weapon_id: this.weapon.id,

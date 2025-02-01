@@ -13,7 +13,7 @@
             {{ element.position }}
             <v-avatar size="large">
               <v-img
-                :src="`src/assets/Resonators/Icons/${getPlannerItemName(element.resonator_id, element.type)}_Icon.webp`"
+                :src="getResonatorIconUrl(getPlannerItemName(element.resonator_id, element.type))"
               ></v-img>
             </v-avatar>
             {{ getPlannerItemName(element.resonator_id, element.type) }}
@@ -22,7 +22,7 @@
             {{ element.position }}
             <v-avatar size="large">
               <v-img
-                :src="`src/assets/Weapons/Icons/${getPlannerItemName(element.weapon_id, element.type).replace(' ', '_')}_Icon.webp`"
+                :src="getWeaponIconUrl(getPlannerItemName(element.weapon_id, element.type))"
               ></v-img>
             </v-avatar>
             {{ getPlannerItemName(element.weapon_id, element.type) }}
@@ -50,6 +50,8 @@ import IPlannerWeapon from '@/interfaces/Weapon/IPlannerWeapon'
 
 //utils
 import { saveArrayToLocalStorage } from '@/utils/local_storage'
+import { getResonatorIconUrl } from '@/utils/supabase'
+import { getWeaponIconUrl } from '@/utils/supabase'
 
 export default defineComponent({
   name: 'PriotizePlannerItem',
@@ -78,6 +80,8 @@ export default defineComponent({
     }
   },
   methods: {
+    getResonatorIconUrl,
+    getWeaponIconUrl,
     getPlannerItemName(item_id: string, item_type: number): string {
       if (item_type === 0) {
         return this.resonator_store.getResonator(item_id).name

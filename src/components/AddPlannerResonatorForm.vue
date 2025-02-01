@@ -3,7 +3,7 @@
     <v-card-title class="pa-0 pb-6">
       <v-avatar size="large">
         <v-img
-          :src="`src/assets/Resonators/Icons/${resonator.name}_Icon.webp`"
+          :src="getResonatorIconUrl(resonator.name)"
         ></v-img>
       </v-avatar>
       {{ resonator.name }}
@@ -191,6 +191,9 @@ import { usePlannerItemStore } from '@/stores/planner_item'
 // interfaces
 import IPlannerResonator from '@/interfaces/Resonator/IPlannerResonator'
 
+//utils
+import { getResonatorIconUrl } from '@/utils/supabase';
+
 export default defineComponent({
   name: 'AddPlannerResonatorForm',
   props: {
@@ -242,6 +245,7 @@ export default defineComponent({
     }
   },
   methods: {
+    getResonatorIconUrl,
     addResonator() {
       const new_resonator: IPlannerResonator = {
         resonator_id: this.resonator.id,
