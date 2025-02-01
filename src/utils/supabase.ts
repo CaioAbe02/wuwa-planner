@@ -17,3 +17,9 @@ export function getMaterialIconUrl(material_name: string) {
 
   return data.publicUrl
 }
+
+export function getIconUrl(icon_name: string) {
+  const { data } = supabase.storage.from('icons').getPublicUrl(`${icon_name.replaceAll(' ', '_')}.webp`)
+
+  return data.publicUrl
+}

@@ -85,7 +85,7 @@
               <v-sheet class="rounded-t" :class="getRarityClass(necessary_material.rarity)">
                 <v-sheet class="forged_quantity d-flex text-caption px-1 rounded-be" v-if="getForgedMaterialQuantity(resonator_inv, necessary_material.id) > 0">
                   <v-img
-                    :src="`src/assets/Icon_Synthesize.webp`"
+                    :src="getIconUrl('synthesize')"
                     :width="15"
                   ></v-img>
                   {{ getForgedMaterialQuantity(resonator_inv, necessary_material.id) }}
@@ -150,7 +150,7 @@ import {
   getInvMaterialQuantity,
   forgeMaterial,
 } from '@/utils/planner_materials'
-import { getResonatorIconUrl, getMaterialIconUrl } from '@/utils/supabase'
+import { getResonatorIconUrl, getMaterialIconUrl, getIconUrl } from '@/utils/supabase'
 
 export default defineComponent({
   name: 'PlannerResonatorCard',
@@ -199,6 +199,7 @@ export default defineComponent({
     forgeMaterial,
     getResonatorIconUrl,
     getMaterialIconUrl,
+    getIconUrl,
     getStatBonusIconName(stat_bonus_name: string): string {
       switch (stat_bonus_name) {
         case 'ATK+': return 'atk.webp'

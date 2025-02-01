@@ -34,7 +34,7 @@
               <v-sheet class="rounded-t" :class="getRarityClass(necessary_material.rarity)">
                 <v-sheet class="forged_quantity d-flex text-caption px-1 rounded-be" v-if="getForgedMaterialQuantity(weapon_inv, necessary_material.id) > 0">
                   <v-img
-                    :src="`src/assets/Icon_Synthesize.webp`"
+                    :src="getIconUrl('synthesize')"
                     :width="15"
                   ></v-img>
                   {{ getForgedMaterialQuantity(weapon_inv, necessary_material.id) }}
@@ -99,7 +99,7 @@ import {
   getInvMaterialQuantity,
   forgeMaterial,
 } from '@/utils/planner_materials'
-import { getWeaponIconUrl, getMaterialIconUrl } from '@/utils/supabase'
+import { getWeaponIconUrl, getMaterialIconUrl, getIconUrl } from '@/utils/supabase'
 
 export default defineComponent({
   name: 'PlannerWeaponCard',
@@ -151,6 +151,7 @@ export default defineComponent({
     forgeMaterial,
     getWeaponIconUrl,
     getMaterialIconUrl,
+    getIconUrl,
     getNecessaryMaterials(): IMaterial[] {
       if (this.planner_weapon.ascention_level !== this.planner_weapon.new_ascention_level) {
         this.getAscentionMaterials()
