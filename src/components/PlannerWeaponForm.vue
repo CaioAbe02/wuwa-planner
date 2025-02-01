@@ -72,7 +72,7 @@ import IPlannerWeapon from '@/interfaces/Weapon/IPlannerWeapon'
 import { getWeaponIconUrl } from '@/utils/supabase';
 
 export default defineComponent({
-  name: 'AddPlannerWeaponForm',
+  name: 'PlannerWeaponForm',
   props: {
     weapon_id: {
       type: String,
