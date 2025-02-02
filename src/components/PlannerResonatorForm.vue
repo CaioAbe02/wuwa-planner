@@ -301,14 +301,14 @@ export default defineComponent({
         forte: {
           normal_attack_level: this.normal_attack,
           new_normal_attack_level: this.new_normal_attack,
-          ressonance_skill_level: this.normal_attack,
-          new_ressonance_skill_level: this.new_normal_attack,
-          forte_circuit_level: this.normal_attack,
-          new_forte_circuit_level: this.new_normal_attack,
-          ressonance_liberation_level: this.normal_attack,
-          new_ressonance_liberation_level: this.new_normal_attack,
-          intro_skill_level: this.normal_attack,
-          new_intro_skill_level: this.new_normal_attack,
+          ressonance_skill_level: this.resonance_skill,
+          new_ressonance_skill_level: this.new_resonance_skill,
+          forte_circuit_level: this.forte_circuit,
+          new_forte_circuit_level: this.new_forte_circuit,
+          ressonance_liberation_level: this.resonance_liberation,
+          new_ressonance_liberation_level: this.new_resonance_liberation,
+          intro_skill_level: this.intro_skill,
+          new_intro_skill_level: this.new_intro_skill,
           inherent_skills: this.inherent_skills,
           stats_bonus: this.stat_bonuses
         }
