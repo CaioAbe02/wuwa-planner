@@ -183,5 +183,8 @@ export function forgeMaterial(inv_store: any, card_inv: any[], family_material: 
         updateMaterialsToChange(materials_to_change, four_stars_material.id, 0, forge_quantity4, 3)
       }
     }
+    else {
+      updateMaterialsToChange(materials_to_change, material_id, new_quantity, 0, 0)
+    }
   }
 }
