@@ -1,6 +1,6 @@
 <template>
   <v-sheet class="rounded-lg h-100" :class="!planner_resonator.visible ? 'planner_item_invisible' : ''">
-    <v-sheet class="five-stars-gradient d-flex align-center justify-space-between rounded-t-lg pa-2">
+    <v-sheet class="d-flex align-center justify-space-between rounded-t-lg pa-2" :class="getRarityClass(resonator.rarity)">
       <div class="d-flex align-center ga-2">
         <v-avatar size="large">
           <v-img
