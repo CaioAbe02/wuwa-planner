@@ -4,27 +4,10 @@
       {{ material_family.name }}
     </v-card-title>
     <v-form class="d-flex ga-2 px-6" @submit.prevent="submit">
-      <v-sheet class="d-flex flex-column align-center">
-        <v-sheet class="rounded-t" :class="getRarityClass(material_family.two_stars.rarity)">
-          <v-img
-            :src="getMaterialIconUrl(material_family.two_stars.name)"
-            :width="50"
-          >
-          </v-img>
-        </v-sheet>
-        <v-sheet class="rounded-b" width="50px">
-          <v-text-field
-            class="centered_input"
-            density="compact"
-            variant="plain"
-            v-model="two_stars_material_qty"
-          ></v-text-field>
-        </v-sheet>
-      </v-sheet>
       <v-sheet class="material_card d-flex flex-column align-center">
-        <v-sheet class="rounded-t" :class="getRarityClass(material_family.three_stars.rarity)">
+        <v-sheet class="rounded-t" :class="getRarityClass(material_family.five_stars.rarity)">
           <v-img
-            :src="getMaterialIconUrl(material_family.three_stars.name)"
+            :src="getMaterialIconUrl(material_family.five_stars.name)"
             :width="50"
           >
           </v-img>
@@ -34,7 +17,7 @@
             class="centered_input"
             density="compact"
             variant="plain"
-            v-model="three_stars_material_qty"
+            v-model="five_stars_material_qty"
           ></v-text-field>
         </v-sheet>
       </v-sheet>
@@ -56,9 +39,9 @@
         </v-sheet>
       </v-sheet>
       <v-sheet class="material_card d-flex flex-column align-center">
-        <v-sheet class="rounded-t" :class="getRarityClass(material_family.five_stars.rarity)">
+        <v-sheet class="rounded-t" :class="getRarityClass(material_family.three_stars.rarity)">
           <v-img
-            :src="getMaterialIconUrl(material_family.five_stars.name)"
+            :src="getMaterialIconUrl(material_family.three_stars.name)"
             :width="50"
           >
           </v-img>
@@ -68,7 +51,24 @@
             class="centered_input"
             density="compact"
             variant="plain"
-            v-model="five_stars_material_qty"
+            v-model="three_stars_material_qty"
+          ></v-text-field>
+        </v-sheet>
+      </v-sheet>
+      <v-sheet class="d-flex flex-column align-center">
+        <v-sheet class="rounded-t" :class="getRarityClass(material_family.two_stars.rarity)">
+          <v-img
+            :src="getMaterialIconUrl(material_family.two_stars.name)"
+            :width="50"
+          >
+          </v-img>
+        </v-sheet>
+        <v-sheet class="rounded-b" width="50px">
+          <v-text-field
+            class="centered_input"
+            density="compact"
+            variant="plain"
+            v-model="two_stars_material_qty"
           ></v-text-field>
         </v-sheet>
       </v-sheet>
