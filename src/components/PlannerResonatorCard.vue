@@ -243,7 +243,7 @@ export default defineComponent({
       const new_ascention_level = this.planner_resonator.new_ascention_level
       const ascention_materials = AscentionMaterials(this.resonator!)
 
-      for (let i = ascention_level; i < (new_ascention_level - ascention_level); i++) {
+      for (let i = ascention_level; i < new_ascention_level; i++) {
         for (const j in ascention_materials[i]) {
           addMaterialFromMatrix(this.necessary_materials, ascention_materials, i, parseInt(j))
         }

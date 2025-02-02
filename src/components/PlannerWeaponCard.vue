@@ -176,12 +176,12 @@ export default defineComponent({
       const new_ascention_level = this.planner_weapon.new_ascention_level
       let ascention_materials
       switch (this.weapon.rarity) {
-        case 5: ascention_materials = FiveStarsWeaponAscentionMaterials(this.weapon)
-        case 4: ascention_materials = FourStarsWeaponAscentionMaterials(this.weapon)
+        case 5: ascention_materials = FiveStarsWeaponAscentionMaterials(this.weapon); break
+        case 4: ascention_materials = FourStarsWeaponAscentionMaterials(this.weapon); break
         default: ascention_materials = FiveStarsWeaponAscentionMaterials(this.weapon)
       }
 
-      for (let i = ascention_level; i < (new_ascention_level - ascention_level); i++) {
+      for (let i = ascention_level; i < new_ascention_level; i++) {
         for (const j in ascention_materials[i]) {
           addMaterialFromMatrix(this.necessary_materials, ascention_materials, i, parseInt(j))
         }
