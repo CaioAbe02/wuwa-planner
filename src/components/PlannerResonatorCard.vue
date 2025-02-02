@@ -60,7 +60,7 @@
           <template v-slot:activator="{ props }">
             <div v-if="!inherent_skill" v-bind="props">
               <v-img
-                :src="`src/assets/Forte/${resonator.name}/inherent_skill_${index}.webp`"
+                :src="getResonatorInherentSkillIconUrl(resonator.name, index)"
               ></v-img>
             </div>
           </template>
@@ -70,7 +70,7 @@
           <template v-slot:activator="{ props }">
             <div v-if="!stat_bonus" v-bind="props">
               <v-img
-                :src="`src/assets/Forte/StatsBonus/${getStatBonusIconName(resonator.stats_bonus[index].name)}`"
+                :src="getStatBonusIconUrl(resonator.stats_bonus[index].name)"
               ></v-img>
             </div>
           </template>
@@ -152,7 +152,13 @@ import {
   getInvMaterialQuantity,
   forgeMaterial,
 } from '@/utils/planner_materials'
-import { getResonatorIconUrl, getMaterialIconUrl, getIconUrl } from '@/utils/supabase'
+import {
+  getResonatorIconUrl,
+  getMaterialIconUrl,
+  getIconUrl,
+  getResonatorInherentSkillIconUrl,
+  getStatBonusIconUrl,
+} from '@/utils/supabase'
 
 export default defineComponent({
   name: 'PlannerResonatorCard',
@@ -202,14 +208,8 @@ export default defineComponent({
     getResonatorIconUrl,
     getMaterialIconUrl,
     getIconUrl,
-    getStatBonusIconName(stat_bonus_name: string): string {
-      switch (stat_bonus_name) {
-        case 'ATK+': return 'atk.webp'
-        case 'Crit. Rate+': return 'crit_rate.webp'
-        case 'Crit. DMG+': return 'crit_dmg.webp'
-        default: return 'atk.webp'
-      }
-    },
+    getResonatorInherentSkillIconUrl,
+    getStatBonusIconUrl,
     getStatBonusTooltipText(stat_bonus: IStatBonus): string {
       return (`${stat_bonus.name} ${stat_bonus.value}`)
     },
