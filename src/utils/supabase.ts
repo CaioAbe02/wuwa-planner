@@ -7,7 +7,7 @@ export function getResonatorIconUrl(resonator_name: string) {
 }
 
 export function getWeaponIconUrl(weapon_name: string) {
-  const { data } = supabase.storage.from('weapons').getPublicUrl(`${weapon_name.replace(' ', '_')}/icon.webp`)
+  const { data } = supabase.storage.from('weapons').getPublicUrl(`${weapon_name.replace(' ', '_')}.webp`)
 
   return data.publicUrl
 }
