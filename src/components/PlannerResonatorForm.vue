@@ -128,14 +128,14 @@
         <span>Intro Skill</span>
         <div class="d-flex align-center pt-1">
           <v-text-field
-            v-model="intro_skill"
+            v-model.number="intro_skill"
             density="compact"
             variant="outlined"
             append-icon="mdi-arrow-right-thin"
             :rules="[rules.required, rules.forte]"
           ></v-text-field>
           <v-text-field
-            v-model="new_intro_skill"
+            v-model.number="new_intro_skill"
             density="compact"
             variant="outlined"
             class="ml-4"
