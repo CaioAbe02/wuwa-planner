@@ -43,6 +43,7 @@ export const useResonatorStore = defineStore('resonator_store', {
         ),
         skill_upgrade_material:materials!skill_upgrade_material_id("*")
       `)
+      .order('name')
       .returns<IResonator[]>()
 
       if (data) {

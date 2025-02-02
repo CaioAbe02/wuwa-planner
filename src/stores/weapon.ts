@@ -39,6 +39,7 @@ export const useWeaponStore = defineStore('weapon_store', {
           five_stars:materials!five_stars_id("*")
         )
       `)
+      .order('name')
       .returns<IWeapon[]>()
 
       if (data) {
