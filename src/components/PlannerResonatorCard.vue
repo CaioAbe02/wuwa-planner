@@ -53,30 +53,32 @@
         </div>
       </div>
     </div>
-    <v-divider></v-divider>
-    <div class="stats_bonus_container ga-1 pa-4">
-      <v-tooltip v-for="(inherent_skill, index) in planner_resonator.forte.inherent_skills" location="bottom center" origin="auto" class="tooltip">
-        <template v-slot:activator="{ props }">
-          <div v-if="!inherent_skill" v-bind="props">
-            <v-img
-              :src="`src/assets/Forte/${resonator.name}/inherent_skill_${index}.webp`"
-            ></v-img>
-          </div>
-        </template>
-        <p>{{ resonator.inherent_skills[index] }}</p>
-      </v-tooltip>
-      <v-tooltip v-for="(stat_bonus, index) in planner_resonator.forte.stats_bonus" location="bottom center" origin="auto">
-        <template v-slot:activator="{ props }">
-          <div v-if="!stat_bonus" v-bind="props">
-            <v-img
-              :src="`src/assets/Forte/StatsBonus/${getStatBonusIconName(resonator.stats_bonus[index].name)}`"
-            ></v-img>
-          </div>
-        </template>
-        <p>{{ getStatBonusTooltipText(resonator.stats_bonus[index]) }}</p>
-      </v-tooltip>
+    <div v-if="!(planner_resonator.forte.inherent_skills.every(value => value) && planner_resonator.forte.stats_bonus.every(value => value))">
+      <v-divider></v-divider>
+      <div class="stats_bonus_container ga-1 pa-4">
+        <v-tooltip v-for="(inherent_skill, index) in planner_resonator.forte.inherent_skills" location="bottom center" origin="auto" class="tooltip">
+          <template v-slot:activator="{ props }">
+            <div v-if="!inherent_skill" v-bind="props">
+              <v-img
+                :src="`src/assets/Forte/${resonator.name}/inherent_skill_${index}.webp`"
+              ></v-img>
+            </div>
+          </template>
+          <p>{{ resonator.inherent_skills[index] }}</p>
+        </v-tooltip>
+        <v-tooltip v-for="(stat_bonus, index) in planner_resonator.forte.stats_bonus" location="bottom center" origin="auto">
+          <template v-slot:activator="{ props }">
+            <div v-if="!stat_bonus" v-bind="props">
+              <v-img
+                :src="`src/assets/Forte/StatsBonus/${getStatBonusIconName(resonator.stats_bonus[index].name)}`"
+              ></v-img>
+            </div>
+          </template>
+          <p>{{ getStatBonusTooltipText(resonator.stats_bonus[index]) }}</p>
+        </v-tooltip>
+      </div>
     </div>
-    <v-divider v-if="!necessary_materials.every((material) => material.show === false)"></v-divider>
+    <v-divider></v-divider>
     <div class="materials_container ga-2 pa-4">
       <template v-for="necessary_material in necessary_materials" :key="necessary_material.id">
         <div v-if="necessary_material.show">
