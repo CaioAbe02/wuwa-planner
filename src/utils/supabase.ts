@@ -31,19 +31,16 @@ export function getIconUrl(icon_name: string) {
 }
 
 export function getStatBonusIconUrl(stat_bonus: string) {
-  let file_name
-
-  switch (stat_bonus) {
-    case 'ATK+': file_name = 'atk'
-    case 'Crit. Rate+': file_name = 'crit_rate'
-    case 'Crit. DMG+': file_name = 'crit_dmg'
-    case 'HP+': file_name = 'hp'
-    case 'DEF+': file_name = 'def'
-    case 'Healing Bonus+': file_name = 'healing_bonus'
-    default: file_name = 'atk'
+  const statBonusMap: Record<string, string> = {
+    'ATK+': 'atk',
+    'Crit. Rate+': 'crit_rate',
+    'Crit. DMG+': 'crit_dmg',
+    'HP+': 'hp',
+    'DEF+': 'def',
+    'Healing Bonus+': 'healing_bonus'
   }
 
-  const { data } = supabase.storage.from('stat_bonuses').getPublicUrl(`${file_name}.webp`)
+  const { data } = supabase.storage.from('stat_bonuses').getPublicUrl(`${statBonusMap[stat_bonus] ?? 'atk'}.webp`)
 
   return data.publicUrl
 }
