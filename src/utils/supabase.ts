@@ -37,7 +37,13 @@ export function getStatBonusIconUrl(stat_bonus: string) {
     'Crit. DMG+': 'crit_dmg',
     'HP+': 'hp',
     'DEF+': 'def',
-    'Healing Bonus+': 'healing_bonus'
+    'Healing Bonus+': 'healing_bonus',
+    'Aero DMG Bonus+': 'aero',
+    'Electro DMG Bonus+': 'electro',
+    'Fusion DMG Bonus+': 'fusion',
+    'Glacio DMG Bonus+': 'glacio',
+    'Havoc DMG Bonus+': 'Havoc',
+    'Spectro DMG Bonus+': 'spectro',
   }
 
   const { data } = supabase.storage.from('stat_bonuses').getPublicUrl(`${statBonusMap[stat_bonus] ?? 'atk'}.webp`)
