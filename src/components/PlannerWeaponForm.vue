@@ -86,7 +86,7 @@ export default defineComponent({
   data() {
     return {
       rules: {
-        required: (value: any) => !!value || '',
+        required: (value: any) => (value !== null && value !== undefined && value !== '') || '',
         ascention_level: (value: any) => (value >= 0 && value <= 6) || '',
         new_ascention_level: (value: any) => (value >= this.ascention_level) || '',
         level: (value: any) => (value >= 1 && value <= 90) || '',
