@@ -263,35 +263,35 @@ export default defineComponent({
       const skills_materials = SkillsMaterials(this.resonator!)
 
       if (normal_attack_level !== new_normal_attack_level) {
-        for (let i = normal_attack_level - 1; i < (new_normal_attack_level - normal_attack_level); i++) {
+        for (let i = normal_attack_level - 1; i < (new_normal_attack_level - 1); i++) {
           for (const j in skills_materials[i]) {
             addMaterialFromMatrix(this.necessary_materials, skills_materials, i, parseInt(j))
           }
         }
       }
       if (ressonance_skill_level !== new_ressonance_skill_level) {
-        for (let i = ressonance_skill_level - 1; i < (new_ressonance_skill_level - ressonance_skill_level); i++) {
+        for (let i = ressonance_skill_level - 1; i < (new_ressonance_skill_level - 1); i++) {
           for (const j in skills_materials[i]) {
             addMaterialFromMatrix(this.necessary_materials, skills_materials, i, parseInt(j))
           }
         }
       }
       if (forte_circuit_level !== new_forte_circuit_level) {
-        for (let i = forte_circuit_level - 1; i < (new_forte_circuit_level - forte_circuit_level); i++) {
+        for (let i = forte_circuit_level - 1; i < (new_forte_circuit_level - 1); i++) {
           for (const j in skills_materials[i]) {
             addMaterialFromMatrix(this.necessary_materials, skills_materials, i, parseInt(j))
           }
         }
       }
       if (ressonance_liberation_level !== new_ressonance_liberation_level) {
-        for (let i = ressonance_liberation_level - 1; i < (new_ressonance_liberation_level - ressonance_liberation_level); i++) {
+        for (let i = ressonance_liberation_level - 1; i < (new_ressonance_liberation_level - 1); i++) {
           for (const j in skills_materials[i]) {
             addMaterialFromMatrix(this.necessary_materials, skills_materials, i, parseInt(j))
           }
         }
       }
       if (intro_skill_level !== new_intro_skill_level) {
-        for (let i = intro_skill_level - 1; i < (new_intro_skill_level - intro_skill_level); i++) {
+        for (let i = intro_skill_level - 1; i < (new_intro_skill_level - 1); i++) {
           for (const j in skills_materials[i]) {
             addMaterialFromMatrix(this.necessary_materials, skills_materials, i, parseInt(j))
           }
