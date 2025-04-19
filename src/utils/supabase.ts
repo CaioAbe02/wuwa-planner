@@ -42,7 +42,7 @@ export function getStatBonusIconUrl(stat_bonus: string) {
     'Electro DMG Bonus+': 'electro',
     'Fusion DMG Bonus+': 'fusion',
     'Glacio DMG Bonus+': 'glacio',
-    'Havoc DMG Bonus+': 'Havoc',
+    'Havoc DMG Bonus+': 'havoc',
     'Spectro DMG Bonus+': 'spectro',
   }
 
