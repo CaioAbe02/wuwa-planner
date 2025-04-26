@@ -1,4 +1,4 @@
-export default interface IMaterial {
+export default interface INecessaryMaterial {
   id: string,
   name: string,
   rarity: number,

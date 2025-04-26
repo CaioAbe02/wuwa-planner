@@ -1,4 +1,8 @@
 import IFamilyForgeryMaterial from "@/interfaces/Materials/Forgery/IFamilyForgeryMaterial"
+import IForgedInventoryMaterial from "@/interfaces/Materials/IForgedInventoryMaterial"
+import INecessaryMaterial from "@/interfaces/Materials/INecessaryMaterial"
+import { useFamilyMaterialStore } from "@/stores/family_material"
+import { useInventoryStore } from "@/stores/inventory"
 
 export function addMaterialFromMatrix(necessary_materials: any[], materials: any, i: number, j: number) {
   const existing_material = necessary_materials.find(material => material.id === materials[i][j].id)
@@ -8,23 +12,17 @@ export function addMaterialFromMatrix(necessary_materials: any[], materials: any
   }
 }
 
-export function getForgedMaterialQuantity(card_inv: any[], material_id: string) {
-  return (card_inv.find(material => material.id === material_id)?.forged_quantity)
+export function getForgedMaterialQuantity(forged_inv_card: IForgedInventoryMaterial[], material_id: string) {
+  const material = forged_inv_card.find(material => material.id === material_id)
+
+  if (!material) {
+    return 0
+  }
+  return material.forged_quantity
 }
 
 export function getMaterialFileName(material_name: string): string {
   return (material_name.replace(/ /g, '_'))
-}
-
-export function isMaterialCompleted(card_inv: any[], material_id: string) {
-  const material = card_inv.find(card_material => card_material.id === material_id)
-
-  if (material) {
-    if (material.quantity + material.forged_quantity >= material.necessary_quantity) {
-      return true
-    }
-  }
-  return false
 }
 
 export function getInitialMaterialQuantity(initial_materials: any[], material_id: string) {
@@ -70,6 +68,65 @@ export function updateMaterialsToChange(materials_to_change: any, material_id: s
   }
   else {
     materials_to_change[material_id] = new_quantity - forged_quantity * forge_multiplier
+  }
+}
+
+export function findMaterialFromArray(materials: any[], material_id: string) {
+  const material = materials.find(mat => mat.id === material_id)
+
+  if (!material) {
+    throw new Error(`Material with ID ${material_id} not found`)
+  }
+
+  return material
+}
+
+export function forgeMaterials(necessary_material: INecessaryMaterial, forged_inv_card: IForgedInventoryMaterial[], necessary_materials: INecessaryMaterial[]) {
+  const inventory_store = useInventoryStore()
+  const family_store = useFamilyMaterialStore()
+
+  const material = inventory_store.getInvMaterial(necessary_material.id)
+  const forged_material: IForgedInventoryMaterial = findMaterialFromArray(forged_inv_card, material.id)
+
+  const forge_max = 100
+  let forge_quantity_3 = 0
+  let forge_quantity_4 = 0
+  let forge_quantity_5 = 0
+
+  if (material.family_id !== null) {
+    const family = family_store.getFamily(material.family_id)
+    if (material.rarity === 2) {
+      //
+    }
+    else if (material.rarity === 3) {
+      const two_stars_material = inventory_store.getInvMaterial(family.two_stars.id)
+      const two_stars_necessary_material: INecessaryMaterial = findMaterialFromArray(necessary_materials, two_stars_material.id)
+
+      let two_stars_material_qty = two_stars_material.quantity
+
+      for (let i = 0; i < forge_max; i++) {
+        if (forge_quantity_3 + material.quantity >= necessary_material.quantity || two_stars_material_qty - 3 <= two_stars_necessary_material.quantity) {
+          break
+        }
+        forged_material.forged_quantity += 1
+        forge_quantity_3 += 1
+        two_stars_material_qty -= 3
+      }
+    }
+    else if (material.rarity === 4) {
+      const three_stars_material = inventory_store.getInvMaterial(family.three_stars.id)
+      const three_stars_necessary_material: INecessaryMaterial = findMaterialFromArray(necessary_materials, three_stars_material.id)
+
+      let three_stars_material_qty = three_stars_material.quantity
+
+      for (let i = 0; i < forge_max; i++) {
+        if (material.quantity >= necessary_material.quantity || three_stars_material_qty - 3 <= three_stars_necessary_material.quantity) {
+          break
+        }
+        forged_material.forged_quantity += 1
+        three_stars_material_qty -= 3
+      }
+    }
   }
 }
 

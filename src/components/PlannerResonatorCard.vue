@@ -85,12 +85,12 @@
           <v-hover v-slot="{ isHovering, props: hoverProps }">
             <v-sheet class="material_card d-flex flex-column align-center" v-bind="hoverProps" @click="selectMaterial(necessary_material.family_id, necessary_material.id)">
               <v-sheet class="rounded-t" :class="getRarityClass(necessary_material.rarity)">
-                <v-sheet class="forged_quantity d-flex text-caption px-1 rounded-be" v-if="getForgedMaterialQuantity(resonator_inv, necessary_material.id) > 0">
+                <v-sheet class="forged_quantity d-flex text-caption px-1 rounded-be" v-if="getForgedMaterialQuantity(forged_inventory_card, necessary_material.id) > 0">
                   <v-img
                     :src="getIconUrl('synthesize')"
                     :width="15"
                   ></v-img>
-                  {{ getForgedMaterialQuantity(resonator_inv, necessary_material.id) }}
+                  {{ getForgedMaterialQuantity(forged_inventory_card, necessary_material.id) }}
                 </v-sheet>
                 <v-img
                   :src="getMaterialIconUrl(necessary_material.name)"
@@ -102,7 +102,7 @@
                     scrim="#000000"
                     opacity-20
                     class="align-center justify-center rounded-t"
-                    v-if="isMaterialCompleted(resonator_inv, necessary_material.id)"
+                    v-if="inventory_store.getInvMaterial(necessary_material.id).quantity >= necessary_material.quantity"
                   >
                     <v-icon
                       color="green-lighten-1"
@@ -112,7 +112,7 @@
                 </v-img>
               </v-sheet>
               <v-sheet class="rounded-b" width="50px" color="black">
-                <p class="text-caption text-center">{{ getInitialMaterialQuantity(initial_materials, necessary_material.id) }}/{{ necessary_material.quantity }}</p>
+                <p class="text-caption text-center">{{ inventory_store.getInvMaterial(necessary_material.id).quantity }}/{{ necessary_material.quantity }}</p>
               </v-sheet>
             </v-sheet>
           </v-hover>
@@ -128,13 +128,13 @@
 <script lang="ts">
 //stores
 import { useInventoryStore } from '@/stores/inventory'
-import { useFamilyMaterialStore } from '@/stores/family_material'
 import { useResonatorStore } from '@/stores/resonator'
 import { usePlannerItemStore } from '@/stores/planner_item'
 
 // interfaces
 import IStatBonus from '@/interfaces/Forte/IStatBonus'
 import IMaterial from '@/interfaces/Materials/INecessaryMaterial'
+import IForgedInventoryMaterial from '@/interfaces/Materials/IForgedInventoryMaterial'
 
 // utils
 import AscentionMaterials from '@/utils/ascention_materials'
@@ -147,10 +147,9 @@ import {
   addMaterialFromMatrix,
   getForgedMaterialQuantity,
   getMaterialFileName,
-  isMaterialCompleted,
   getInitialMaterialQuantity,
   getInvMaterialQuantity,
-  forgeMaterial,
+  forgeMaterials,
 } from '@/utils/planner_materials'
 import {
   getResonatorIconUrl,
@@ -166,7 +165,7 @@ export default defineComponent({
     resonator_id: {
       required: true,
       type: String
-    }
+    },
   },
   data() {
     return {
@@ -177,7 +176,6 @@ export default defineComponent({
   },
   setup(props) {
     const inventory_store = useInventoryStore()
-    const family_material_store = useFamilyMaterialStore()
     const resonator_store = useResonatorStore()
     const planner_item_store = usePlannerItemStore()
 
@@ -186,10 +184,12 @@ export default defineComponent({
 
     return {
       inventory_store,
+      inventory: computed(() => inventory_store.inventory),
+      forged_inventory: inventory_store.forged_inventory,
+      forged_inventory_card: [] as IForgedInventoryMaterial[],
       planner_item_store,
       resonator,
       planner_resonator,
-      family_material: family_material_store.families,
       necessary_materials: ResonatorMaterials(resonator),
     }
   },
@@ -201,10 +201,9 @@ export default defineComponent({
     addMaterialFromMatrix,
     getForgedMaterialQuantity,
     getMaterialFileName,
-    isMaterialCompleted,
     getInitialMaterialQuantity,
     getInvMaterialQuantity,
-    forgeMaterial,
+    forgeMaterials,
     getResonatorIconUrl,
     getMaterialIconUrl,
     getIconUrl,
@@ -231,10 +230,14 @@ export default defineComponent({
 
       if (this.planner_resonator.visible) {
         for (const material of this.necessary_materials) {
-          forgeMaterial(this.inventory_store, this.resonator_inv, this.family_material, this.materials_to_change, material.id)
+          this.forged_inventory_card.push({
+            id: material.id,
+            forged_quantity: 0
+          })
+          forgeMaterials(material, this.forged_inventory_card, this.necessary_materials)
+          // forgeMaterial(this.inventory_store, this.resonator_inv, this.family_material, this.materials_to_change, material.id)
         }
       }
-      this.inventory_store.updateMaterialsQuantity(this.materials_to_change, true)
 
       return this.necessary_materials
     },

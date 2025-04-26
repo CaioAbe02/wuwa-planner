@@ -49,7 +49,7 @@
                     scrim="#000000"
                     opacity-20
                     class="align-center justify-center rounded-t"
-                    v-if="isMaterialCompleted(weapon_inv, necessary_material.id)"
+                    v-if="inventory_store.getInvMaterial(necessary_material.id).quantity >= necessary_material.quantity"
                   >
                     <v-icon
                       color="green-lighten-1"
@@ -94,7 +94,6 @@ import {
   addMaterialFromMatrix,
   getForgedMaterialQuantity,
   getMaterialFileName,
-  isMaterialCompleted,
   getInitialMaterialQuantity,
   getInvMaterialQuantity,
   forgeMaterial,
@@ -145,7 +144,6 @@ export default defineComponent({
     addMaterialFromMatrix,
     getForgedMaterialQuantity,
     getMaterialFileName,
-    isMaterialCompleted,
     getInitialMaterialQuantity,
     getInvMaterialQuantity,
     forgeMaterial,
@@ -163,11 +161,11 @@ export default defineComponent({
 
       if (this.planner_weapon.visible) {
         for (const material of this.necessary_materials) {
-          forgeMaterial(this.inventory_store, this.weapon_inv, this.family_material, this.materials_to_change, material.id)
+          // forgeMaterial(this.inventory_store, this.weapon_inv, this.family_material, this.materials_to_change, material.id)
         }
       }
 
-      this.inventory_store.updateMaterialsQuantity(this.materials_to_change, true)
+      this.inventory_store.updateMaterialsQuantity(this.materials_to_change)
 
       return this.necessary_materials
     },

@@ -80,7 +80,7 @@ export default defineComponent({
 
       material_to_change[this.material.id] = this.material_qty
 
-      this.inventory_store.updateMaterialsQuantity(material_to_change, false)
+      this.inventory_store.updateMaterialsQuantity(material_to_change)
       this.inventory_store.resetForgedInventory()
       this.emitUpdates()
       this.emitCloseMaterialQtyForm()

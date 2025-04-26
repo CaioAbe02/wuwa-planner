@@ -1,12 +1,13 @@
 import { defineStore } from 'pinia'
 import IInventoryMaterial from '@/interfaces/Materials/IInventoryMaterial'
+import IForgedInventoryMaterial from '@/interfaces/Materials/IForgedInventoryMaterial';
 import { useMaterialStore } from './material'
 
 export const useInventoryStore = defineStore('inventory', {
   state: () => {
     return {
       inventory: [] as IInventoryMaterial[],
-      forged_inventory: [] as IInventoryMaterial[]
+      forged_inventory: [] as IForgedInventoryMaterial[]
     }
   },
   getters: {
@@ -37,51 +38,39 @@ export const useInventoryStore = defineStore('inventory', {
           ...material,
           quantity: material_local?.quantity || 0,
         }
+        const forged_inv_material: IForgedInventoryMaterial = {
+          id: material.id,
+          forged_quantity: 0,
+        }
 
         this.inventory.push(inv_material)
+        this.forged_inventory.push(forged_inv_material)
       }
-      this.forged_inventory = JSON.parse(JSON.stringify(this.inventory))
     },
-    updateMaterialQuantity(material_id: string, new_quantity: number, forged_inv: boolean) {
-      let material
-
-      if (forged_inv) {
-        material = this.forged_inventory.find(material => material.id === material_id)
-      }
-      else {
-        material = this.inventory.find(material => material.id === material_id)
-      }
+    updateMaterialQuantity(material_id: string, new_quantity: number) {
+      const material = this.getInvMaterial(material_id)
 
       if (material) {
         material.quantity = new_quantity
       }
     },
-    updateMaterialsQuantity(materials: object, forged_inv: boolean) {
+    updateMaterialsQuantity(materials: object) {
       let material
 
       for (const [id, new_quantity] of Object.entries(materials)) {
-        if (forged_inv) {
-          material = this.forged_inventory.find(material => material.id === id)
+        let inventory_local: { id: string, quantity: number }[] = JSON.parse(localStorage.getItem('inventory') || '[]')
+
+        material = this.getInvMaterial(id)
+        const material_local = inventory_local.find(material => material.id === id)
+
+        if (material_local) {
+          material_local.quantity = parseInt(new_quantity)
         }
         else {
-          let inventory_local: { id: string, quantity: number }[] = JSON.parse(localStorage.getItem('inventory') || '[]')
-
-          material = this.inventory.find(material => material.id === id)
-          const material_local = inventory_local.find(material => material.id === id)
-
-          if (material_local) {
-            material_local.quantity = parseInt(new_quantity)
-          }
-          else {
-            inventory_local.push({id: id, quantity: parseInt(new_quantity)})
-          }
-          localStorage.setItem('inventory', JSON.stringify(inventory_local))
-
+          inventory_local.push({id: id, quantity: parseInt(new_quantity)})
         }
-
-        if (material) {
-          material.quantity = parseInt(new_quantity)
-        }
+        localStorage.setItem('inventory', JSON.stringify(inventory_local))
+        material.quantity = parseInt(new_quantity)
       }
     },
     resetForgedInventory() {

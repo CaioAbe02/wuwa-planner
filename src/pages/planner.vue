@@ -49,16 +49,14 @@
       <template v-for="planner_item in planner_items">
         <PlannerResonatorCard
           v-if="planner_item.type === 0 && 'resonator_id' in planner_item"
-          :key="planner_item.resonator_id + '-' + n_updates"
+          :key="planner_item.resonator_id"
           :resonator_id="planner_item.resonator_id"
           @emit_open_family_material_qty_form="openFamilyMaterialQtyForm"
           @emit_open_material_qty_form="openMaterialQtyForm"
           @emit_open_planner_resonator_form="openPlannerResonatorForm"
-          @emit_refresh_materials="refreshMaterials"
         />
         <PlannerWeaponCard
           v-else-if="planner_item.type === 1 && 'weapon_id' in planner_item"
-          :key="planner_item.weapon_id + '-' + n_updates"
           :planner_weapon="planner_item"
           @emit_open_family_material_qty_form="openFamilyMaterialQtyForm"
           @emit_open_material_qty_form="openMaterialQtyForm"
@@ -109,10 +107,12 @@ export default defineComponent({
     const is_loading = ref(true)
 
     onBeforeMount(async () => {
-      await material_store.fetchMaterials()
-      await family_material_store.fetchFamilies()
-      await resonator_store.fetchResonators()
-      await weapons_store.fetchWeapons()
+      await Promise.all([
+        material_store.fetchMaterials(),
+        family_material_store.fetchFamilies(),
+        resonator_store.fetchResonators(),
+        weapons_store.fetchWeapons(),
+      ])
       inventory_store.setInventory()
       planner_item_store.fetchPlannerItems()
       is_loading.value = false
@@ -128,7 +128,7 @@ export default defineComponent({
   },
   methods: {
     refreshMaterials() {
-      this.inventory_store.resetForgedInventory()
+      // this.inventory_store.resetForgedInventory()
       this.n_updates += 1
     },
     openFamilyMaterialQtyForm(family_material_id: string) {
@@ -152,6 +152,7 @@ export default defineComponent({
         this.refreshMaterials()
       }
       this.planner_resonator_form = false
+      console.log(this.planner_items)
     },
     openPlannerWeaponForm(weapon_id: string, edit_planner_weapon: boolean) {
       this.weapon_selection = false
