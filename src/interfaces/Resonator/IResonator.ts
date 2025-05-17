@@ -8,6 +8,7 @@ export default interface IResonator {
   id: string,
   name: string,
   rarity: number,
+  element: string,
   resonator_ascention_material_id: IResonatorAscentionMaterial,
   ascention_material_id: IAscentionMaterial,
   ascention_family_forgery_material_id: IFamilyForgeyMaterial,
