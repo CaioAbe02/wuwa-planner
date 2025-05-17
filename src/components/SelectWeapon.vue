@@ -42,7 +42,7 @@
         <v-img :src="`/icons/weapon_types/${weapon_type}.webp`" :aspect-ratio="1" :alt="`${weapon_type} Icon`" cover width="35" />
       </v-btn>
     </div>
-    <div class="d-flex flex-column ga-2">
+    <v-sheet class="d-flex flex-column ga-2 overflow-y-auto custom-scrollbar" max-height="50vh">
       <template v-for="weapon in filteredWeapons">
         <div class="d-flex align-center ga-2 cursor-pointer" @click="selectWeapon(weapon.id)">
           <v-avatar size="large">
@@ -55,7 +55,7 @@
           </span>
         </div>
       </template>
-    </div>
+    </v-sheet>
   </v-sheet>
 </template>
 
