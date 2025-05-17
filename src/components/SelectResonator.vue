@@ -64,7 +64,10 @@
 import { useResonatorStore } from '@/stores/resonator'
 
 //utils
-import { getResonatorIconUrl } from '@/utils/supabase';
+import { getResonatorIconUrl } from '@/utils/supabase'
+
+//enums
+import { Element } from '@/enums/Element'
 
 export default defineComponent({
   name: 'SelectResonator',
